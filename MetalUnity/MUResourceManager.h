@@ -8,7 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import <Metal/Metal.h>
-#import "MUComputeContext.h"
+@class MUComputeContext;
+@class MUComputeManager;
 
 @interface MUResourceManager : NSObject
 
@@ -18,5 +19,6 @@
 +(instancetype)newResourceManagerWithContext:(MUComputeContext*)context;
 -(instancetype)initWithContext:(MUComputeContext*)context;
 -(void)attachTexture:(id<MTLTexture>)texture AtIndex:(NSString*)idx;
+-(void)newTextureFromFile:(NSString*)file AtIndex:(NSString*)idx;
 
 @end

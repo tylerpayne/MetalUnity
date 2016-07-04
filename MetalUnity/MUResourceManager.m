@@ -8,6 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import "MUResourceManager.h"
+#import "MUComputeContext.h"
+#import "MUComputeManager.h"
+#import "MUTexture.h"
 
 @implementation MUResourceManager
 
@@ -23,5 +26,15 @@
 	}
 	return self;
 }
+
+-(void)attachTexture:(id<MTLTexture>)texture AtIndex:(NSString *)idx
+{
+	if (![self.resources objectForKey:idx]) {
+		MUTexture* tx = [MUTexture newTexture:texture Width:texture.width Height:texture.height Depth:texture.depth];
+		[self.resources	setObject:tx forKey:idx];
+	}
+	
+}
+
 
 @end

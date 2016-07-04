@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import "MUComputeContext.h"
+#import "MUComputeManager.h"
+#import "MUResourceManager.h"
 
 @implementation MUComputeContext
 
@@ -26,6 +28,19 @@
 	return self;
 }
 
+-(MUResourceManager*)newResourceManager
+{
+
+	return [MUResourceManager newResourceManagerWithContext:self];
+
+}
+
+-(MUComputeManager*)newComputeManagerForFunction:(NSString *)fnc
+{
+	
+	return [MUComputeManager newComputeManagerWithContext:self Function:fnc];
+	
+}
 
 
 @end
