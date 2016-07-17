@@ -12,6 +12,8 @@
 		7C14FDA11D299DDB00E476B7 /* MUComputeManager.h in Sources */ = {isa = PBXBuildFile; fileRef = 7C14FD9F1D29990F00E476B7 /* MUComputeManager.h */; };
 		7C14FDA21D299DDB00E476B7 /* MUResourceManager.h in Sources */ = {isa = PBXBuildFile; fileRef = 7C3701941D18D0CB0067BC23 /* MUResourceManager.h */; };
 		7C14FDA51D2A163C00E476B7 /* MUTexture.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C14FDA41D2A163C00E476B7 /* MUTexture.m */; };
+		7C14FDA71D2AF24400E476B7 /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 7C14FDA61D2AF24400E476B7 /* Shaders.metal */; };
+		7C14FDA81D2AFA4C00E476B7 /* MetalUnity.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C37017F1D18CD530067BC23 /* MetalUnity.m */; };
 		7C37017E1D18CD530067BC23 /* MetalUnity.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7C37017D1D18CD530067BC23 /* MetalUnity.h */; };
 		7C3701871D18CD7D0067BC23 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C3701861D18CD7D0067BC23 /* Foundation.framework */; };
 		7C3701891D18CD820067BC23 /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C3701881D18CD820067BC23 /* Metal.framework */; };
@@ -38,9 +40,10 @@
 		7C14FD9F1D29990F00E476B7 /* MUComputeManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUComputeManager.h; sourceTree = "<group>"; };
 		7C14FDA31D2A163000E476B7 /* MUTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUTexture.h; sourceTree = "<group>"; };
 		7C14FDA41D2A163C00E476B7 /* MUTexture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUTexture.m; sourceTree = "<group>"; };
+		7C14FDA61D2AF24400E476B7 /* Shaders.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; name = Shaders.metal; path = ../Shaders.metal; sourceTree = "<group>"; };
 		7C37017A1D18CD530067BC23 /* libMetalUnity.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMetalUnity.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C37017D1D18CD530067BC23 /* MetalUnity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MetalUnity.h; sourceTree = "<group>"; };
-		7C37017F1D18CD530067BC23 /* MetalUnity.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MetalUnity.m; sourceTree = "<group>"; };
+		7C37017F1D18CD530067BC23 /* MetalUnity.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; path = MetalUnity.m; sourceTree = "<group>"; };
 		7C3701861D18CD7D0067BC23 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		7C3701881D18CD820067BC23 /* Metal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Metal.framework; path = System/Library/Frameworks/Metal.framework; sourceTree = SDKROOT; };
 		7C37018A1D18CD880067BC23 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
@@ -112,6 +115,7 @@
 				7C3701921D18D0BD0067BC23 /* MUResourceManager.m */,
 				7C14FDA31D2A163000E476B7 /* MUTexture.h */,
 				7C14FDA41D2A163C00E476B7 /* MUTexture.m */,
+				7C14FDA61D2AF24400E476B7 /* Shaders.metal */,
 			);
 			name = Core;
 			sourceTree = "<group>";
@@ -172,6 +176,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7C14FDA71D2AF24400E476B7 /* Shaders.metal in Sources */,
 				7C14FDA01D299DDB00E476B7 /* MUComputeContext.h in Sources */,
 				7C14FDA51D2A163C00E476B7 /* MUTexture.m in Sources */,
 				7C14FDA11D299DDB00E476B7 /* MUComputeManager.h in Sources */,
@@ -179,6 +184,7 @@
 				7C3701931D18D0BD0067BC23 /* MUResourceManager.m in Sources */,
 				7C3701901D18CDF70067BC23 /* MUComputeContext.m in Sources */,
 				7C14FD9D1D29982000E476B7 /* MUComputeManager.m in Sources */,
+				7C14FDA81D2AFA4C00E476B7 /* MetalUnity.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -224,7 +230,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -262,6 +268,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -270,6 +277,7 @@
 		7C3701841D18CD530067BC23 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -279,6 +287,7 @@
 		7C3701851D18CD530067BC23 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;

@@ -19,6 +19,7 @@
 +(instancetype)newResourceManagerWithContext:(MUComputeContext*)context;
 -(instancetype)initWithContext:(MUComputeContext*)context;
 -(void)attachTexture:(id<MTLTexture>)texture AtIndex:(NSString*)idx;
+-(void)attachOutputTexture;
 -(void)newTextureFromFile:(NSString*)file AtIndex:(NSString*)idx;
 
 @end

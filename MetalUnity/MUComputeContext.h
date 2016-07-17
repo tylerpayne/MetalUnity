@@ -17,6 +17,8 @@
 @property (strong) id<MTLLibrary> library;
 @property (strong) id<MTLCommandQueue> queue;
 @property (strong) id<MTLCommandBuffer> commandBuffer;
+@property (strong) MUResourceManager* resourceManager;
+@property (strong) MUComputeManager* computeManager;
 
 +(instancetype)newComputeContext;
 -(instancetype)initWithDefaultDevice;
