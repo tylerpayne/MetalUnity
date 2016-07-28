@@ -10,7 +10,8 @@
 
 using namespace metal;
 
-kernel void SobelGradient(texture2d<float, access::read> inTexture [[texture(0)]],
+
+kernel void SobelGradient_Magnitude(texture2d<float, access::read> inTexture [[texture(0)]],
 					 texture2d<float, access::read> x_weights [[texture(2)]],
 					 texture2d<float, access::read> y_weights [[texture(3)]],
                              texture2d<float, access::write> outTexture [[texture(1)]],

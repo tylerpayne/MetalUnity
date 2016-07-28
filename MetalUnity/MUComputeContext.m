@@ -24,6 +24,7 @@
 		_device = MTLCreateSystemDefaultDevice();
 		_library = [_device newDefaultLibrary];
 		_queue = [_device newCommandQueue];
+		NSLog(@"New MTLComputeContext!");
 	}
 	return self;
 }

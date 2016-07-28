@@ -16,6 +16,7 @@
 
 +(instancetype)newComputeManagerWithContext:(MUComputeContext *)context Function:(NSString*)fnc
 {
+	NSLog(@"Compute Function: %@",fnc);
 	id<MTLFunction> mtlfnc = [context.library newFunctionWithName:fnc];
 	return [[self alloc] initWithContext:context Function:mtlfnc];
 }
@@ -48,7 +49,11 @@
 		}];
 	
 		MTLSize imsize = ((MUTexture*)[self.resourceManager.resources valueForKey:@"0"]).size;
-		MTLSize threadDim = MTLSizeMake(3, 3, 1);
+		MTLSize threadDim = MTLSizeMake(1, 1, 1);
+		MUTexture* filter = ((MUTexture*)[self.resourceManager.resources valueForKey:@"2"]);
+		if (filter) {
+			threadDim = filter.size;
+		}
 		MTLSize blockDim = MTLSizeMake(imsize.width/threadDim.width, imsize.height/threadDim.height, 1);
 		[encoder dispatchThreadgroups:blockDim threadsPerThreadgroup:threadDim];
 		[encoder endEncoding];
