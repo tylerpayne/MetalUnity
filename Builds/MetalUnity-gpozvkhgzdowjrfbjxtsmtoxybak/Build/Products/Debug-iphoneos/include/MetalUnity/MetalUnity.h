@@ -12,23 +12,20 @@
 @class MUComputeManager;
 @class MUResourceManager;
 @class MUTexture;
+@class Filters;
 
 @interface MetalUnity : NSObject
 
 @property (strong) MUComputeContext* context;
-@property (strong) MUResourceManager* resourceManager;
-@property (strong) MUComputeManager* computeManager;
+@property (strong) NSMutableArray* rms;
+@property (strong) NSMutableArray* cms;
 
 @property (assign) bool hasContext;
-@property (assign) bool hasResourceManager;
-@property (assign) bool hasComputeManager;
 
 +(instancetype)_setupMetalUnity;
 -(instancetype)init;
--(void)_generate3x3SobelOperators;
--(void)_generate5x5SobelOperators;
--(void)_newComputeManagerForFnc:(NSString*)fnc;
--(void)_newResourceManager;
--(void)_dispatchAndCompute;
+-(int)_newComputeManagerForFnc:(NSString*)fnc;
+-(int)_newResourceManager;
+-(void)_dispatchAndCompute:(int)cm ResourceManager:(int)rm;
 
 @end

@@ -10,16 +10,18 @@
 #import <Metal/Metal.h>
 @class MUComputeContext;
 @class MUComputeManager;
+@class Filters;
 
 @interface MUResourceManager : NSObject
 
 @property (strong) MUComputeContext* context;
 @property (strong) NSMutableDictionary* resources;
+@property (assign) unsigned long int mipmaplevel;
 
 +(instancetype)newResourceManagerWithContext:(MUComputeContext*)context;
 -(instancetype)initWithContext:(MUComputeContext*)context;
 -(void)attachTexture:(id<MTLTexture>)texture AtIndex:(NSString*)idx;
 -(void)attachOutputTexture;
--(void)newTextureFromFile:(NSString*)file AtIndex:(NSString*)idx;
+//-(void)newTextureFromFile:(NSString*)file AtIndex:(NSString*)idx;
 
 @end

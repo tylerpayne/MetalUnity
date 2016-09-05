@@ -11,6 +11,7 @@
 #import "MUComputeContext.h"
 #import "MUComputeManager.h"
 #import "MUTexture.h"
+#import "Filters.h"
 
 @implementation MUResourceManager
 
@@ -34,14 +35,17 @@
 		MUTexture* tx = [MUTexture newTexture:texture Width:texture.width Height:texture.height Depth:1];
 		[self.resources	setObject:tx forKey:idx];
 	}
-	
 }
 
 -(void)attachOutputTexture
 {
 	MUTexture* inTex = [self.resources objectForKey:@"0"];
+	int divisor = pow(2, self.mipmaplevel);
+	unsigned long int w = (int)MAX(1,inTex.size.width / divisor);
+	unsigned long int h = (int)MAX(1,inTex.size.height / divisor);
+	
 	if (inTex != NULL) {
-		MTLTextureDescriptor *txdesc = [MTLTextureDescriptor texture2DDescriptorWithPixelFormat:MTLPixelFormatBGRA8Unorm width:inTex.size.width height:inTex.size.height mipmapped:FALSE];
+		MTLTextureDescriptor *txdesc = [MTLTextureDescriptor texture2DDescriptorWithPixelFormat:MTLPixelFormatRGBA8Unorm width:w height:h mipmapped:FALSE];
 		id<MTLTexture> outTex = [self.context.device newTextureWithDescriptor:txdesc];
 		[self attachTexture:outTex AtIndex:@"1"];
 	}

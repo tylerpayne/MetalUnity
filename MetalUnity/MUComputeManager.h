@@ -17,8 +17,10 @@
 @property (strong) MUResourceManager* resourceManager;
 @property (strong) id<MTLComputePipelineState> pipeline;
 
+@property (strong) NSString* computeFunction;
+
 +(instancetype)newComputeManagerWithContext:(MUComputeContext*)context Function:(NSString*)fnc;
--(instancetype)initWithContext:(MUComputeContext*)context Function:(id<MTLFunction>)fnc;
+-(instancetype)initWithContext:(MUComputeContext *)context Function:(NSString*)fnc;
 -(void)dispatch;
 
 @end

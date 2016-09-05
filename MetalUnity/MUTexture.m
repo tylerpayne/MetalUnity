@@ -12,8 +12,14 @@
 
 +(instancetype)newTexture:(id<MTLTexture>)tx Width:(NSUInteger)w Height:(NSUInteger)h Depth:(NSUInteger)d
 {
-	return [[self alloc] initWithTexture:tx Width:w Height:h Depth:h];
+	return [[self alloc] initWithTexture:tx Width:w Height:h Depth:d];
 }
+
++(instancetype)NewEmptyTexture:(MUComputeContext*)context Width:(NSUInteger)w Height:(NSUInteger)h Depth:(NSUInteger)d
+{
+	return [[self alloc] initWithContext:context Width:w Height:h Depth:d];
+}
+
 
 -(instancetype)initWithTexture:(id<MTLTexture>)tx Width:(NSUInteger)w Height:(NSUInteger)h Depth:(NSUInteger)d
 {
@@ -21,6 +27,15 @@
 		self.tex = tx;
 		self.size = MTLSizeMake(w, h, d);
 	}
+	return self;
+}
+
+
+-(instancetype)initWithContext:(MUComputeContext*)context Width:(NSUInteger)w Height:(NSUInteger)h Depth:(NSUInteger)d
+{
+	MTLTextureDescriptor *txdesc = [MTLTextureDescriptor texture2DDescriptorWithPixelFormat:MTLPixelFormatRGBA8Unorm width:w height:h mipmapped:FALSE];
+	self.tex = [self.context.device newTextureWithDescriptor:txdesc];
+	self.size = MTLSizeMake(w, h, d);
 	return self;
 }
 
