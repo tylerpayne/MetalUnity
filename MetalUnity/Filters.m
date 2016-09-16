@@ -17,17 +17,17 @@
 
 +(id<MTLTexture>)GaussianFilterStd:(float)sigma Width:(int)w Context:(MUComputeContext*)ctx
 {
-	MTLTextureDescriptor* txdesc = [MTLTextureDescriptor texture2DDescriptorWithPixelFormat:MTLPixelFormatR32Float width:w height:w mipmapped:FALSE];
+	MTLTextureDescriptor* txdesc = [MTLTextureDescriptor texture2DDescriptorWithPixelFormat:MTLPixelFormatR8Snorm width:w height:w mipmapped:FALSE];
 	id<MTLTexture> gaussian = [ctx.device newTextureWithDescriptor:txdesc];
 	
-	Float32 *weights = (Float32*)malloc(sizeof(Float32) * w * w);
-	Float32 variance = sigma*sigma;
+	float *weights = (float*)malloc(sizeof(float) * w * w);
+	float variance = sigma*sigma;
 	int radius = floorf(w/2.0f);
 	float normfactor = 0.0f;
 	for (int y = 0; y<w; ++y) {
 		for (int x =0; x<w; ++x) {
-			Float32 xsqrd = (x-radius)*(x-radius);
-			Float32 ysqrd = (y-radius)*(y-radius);
+			float xsqrd = (x-radius)*(x-radius);
+			float ysqrd = (y-radius)*(y-radius);
 			float val = (exp(-1.0*((xsqrd+ysqrd)/(2.0*variance))));
 			weights[IDX2C(y, x, w)] = val;
 			normfactor += val;
@@ -41,30 +41,30 @@
 	}
 	
 	MTLRegion reg = MTLRegionMake2D(0, 0, w, w);
-	[gaussian replaceRegion:reg mipmapLevel:0 withBytes:weights bytesPerRow:sizeof(Float32)*w];
+	[gaussian replaceRegion:reg mipmapLevel:0 withBytes:weights bytesPerRow:sizeof(float)*w];
 	free(weights);
 	return gaussian;
 }
 
 +(id<MTLTexture>)DifferenceOfGaussian:(float)sigma Width:(int)w Context:(MUComputeContext*)ctx
 {
-	MTLTextureDescriptor* txdesc = [MTLTextureDescriptor texture2DDescriptorWithPixelFormat:MTLPixelFormatR32Float width:w height:w mipmapped:FALSE];
+	MTLTextureDescriptor* txdesc = [MTLTextureDescriptor texture2DDescriptorWithPixelFormat:MTLPixelFormatR8Snorm width:w height:w mipmapped:FALSE];
 	id<MTLTexture> gaussian = [ctx.device newTextureWithDescriptor:txdesc];
 	
-	Float32 *weights = (Float32*)malloc(sizeof(Float32) * w * w);
+	float *weights = (float*)malloc(sizeof(float) * w * w);
 	
 	float sigma1 = sigma/sqrtf(2.0f);
 	float sigma2 = sqrtf(2.0f)*sigma;
 	
-	Float32 variance1 = sigma1*sigma1;
-	Float32 variance2 = sigma2*sigma2;
+	float variance1 = sigma1*sigma1;
+	float variance2 = sigma2*sigma2;
 	int radius = floorf(w/2.0f);
 	float normfactor = 0.0f;
 	float coeffecient = 1.0f/sqrtf(2.0f*M_PI);
 	for (int y = 0; y<w; ++y) {
 		for (int x =0; x<w; ++x) {
-			Float32 xsqrd = (x-radius)*(x-radius);
-			Float32 ysqrd = (y-radius)*(y-radius);
+			float xsqrd = (x-radius)*(x-radius);
+			float ysqrd = (y-radius)*(y-radius);
 			float val1 = (1.0f/sigma1)*(exp(-1.0*((xsqrd+ysqrd)/(2.0*variance1))));
 			float val2 = (1.0f/sigma2)*(exp(-1.0*((xsqrd+ysqrd)/(2.0*variance2))));
 			float val = coeffecient*(val1-val2);
@@ -81,7 +81,7 @@
 	}
 	
 	MTLRegion reg = MTLRegionMake2D(0, 0, w, w);
-	[gaussian replaceRegion:reg mipmapLevel:0 withBytes:weights bytesPerRow:sizeof(Float32)*w];
+	[gaussian replaceRegion:reg mipmapLevel:0 withBytes:weights bytesPerRow:sizeof(float)*w];
 	free(weights);
 	return gaussian;
 }
@@ -90,17 +90,17 @@
 
 +(id<MTLTexture>)LaplacianOfGaussian:(float)sigma Width:(int)w Context:(MUComputeContext*)ctx
 {
-	MTLTextureDescriptor* txdesc = [MTLTextureDescriptor texture2DDescriptorWithPixelFormat:MTLPixelFormatR32Float width:w height:w mipmapped:FALSE];
+	MTLTextureDescriptor* txdesc = [MTLTextureDescriptor texture2DDescriptorWithPixelFormat:MTLPixelFormatR8Snorm width:w height:w mipmapped:FALSE];
 	id<MTLTexture> LoG = [ctx.device newTextureWithDescriptor:txdesc];
 	
-	Float32 *weights = (Float32*)malloc(sizeof(Float32) * w * w);
-	Float32 variance = sigma*sigma;
+	float *weights = (float*)malloc(sizeof(float) * w * w);
+	float variance = sigma*sigma;
 	int radius = floorf(w/2.0f);
 	float normfactor = 0.0f;
 	for (int y = 0; y<w; ++y) {
 		for (int x =0; x<w; ++x) {
-			Float32 xsqrd = (x-radius)*(x-radius);
-			Float32 ysqrd = (y-radius)*(y-radius);
+			float xsqrd = (x-radius)*(x-radius);
+			float ysqrd = (y-radius)*(y-radius);
 			float val = ((xsqrd+ysqrd)/(2.0*variance));
 			val = (-1.0/(pow(sigma,4)*M_PI))*(1.0-val)*(exp(-1.0*val));
 			weights[IDX2C(y, x, w)] = val;
@@ -115,19 +115,19 @@
 	}
 	
 	MTLRegion reg = MTLRegionMake2D(0, 0, w, w);
-	[LoG replaceRegion:reg mipmapLevel:0 withBytes:weights bytesPerRow:sizeof(Float32)*w];
+	[LoG replaceRegion:reg mipmapLevel:0 withBytes:weights bytesPerRow:sizeof(float)*w];
 	free(weights);
 	return LoG;
 }
 
 +(id<MTLTexture>)LaplacianOperator3x3:(MUComputeContext*)ctx
 {
-	MTLTextureDescriptor* laplacianTexDesc = [MTLTextureDescriptor texture2DDescriptorWithPixelFormat:MTLPixelFormatR32Float width:3 height:3 mipmapped:FALSE];
+	MTLTextureDescriptor* laplacianTexDesc = [MTLTextureDescriptor texture2DDescriptorWithPixelFormat:MTLPixelFormatR8Snorm width:3 height:3 mipmapped:FALSE];
 	id<MTLTexture> laplacian = [ctx.device newTextureWithDescriptor:laplacianTexDesc];
 	
 	const int size = 3;
 	
-	Float32 *laplacianWeights = (Float32*)malloc(sizeof(Float32) * size * size);
+	float *laplacianWeights = (float*)malloc(sizeof(float) * size * size);
 	
 	laplacianWeights[0] = 0.0;
 	laplacianWeights[1] = 1.0;
@@ -139,20 +139,32 @@
 	laplacianWeights[7] = 1.0;
 	laplacianWeights[8] = 0.0;
 	
+	float sum = 0.0;
+	
+	for (int i = 0; i < size*size; i++)
+	{
+		sum += laplacianWeights[i];
+	}
+	
+	for (int i = 0; i < size*size; i++)
+	{
+		laplacianWeights[i] = laplacianWeights[i]/sum;
+	}
+	
 	MTLRegion reg = MTLRegionMake2D(0, 0, 3, 3);
-	[laplacian replaceRegion:reg mipmapLevel:0 withBytes:laplacianWeights bytesPerRow:sizeof(Float32)*size];
+	[laplacian replaceRegion:reg mipmapLevel:0 withBytes:laplacianWeights bytesPerRow:sizeof(float)*size];
 	free(laplacianWeights);
 	return laplacian;
 }
 
 +(id<MTLTexture>)SobelFilter3x3_X:(MUComputeContext*)ctx
 {
-	MTLTextureDescriptor* sobeltxdesc = [MTLTextureDescriptor texture2DDescriptorWithPixelFormat:MTLPixelFormatR32Float width:3 height:3 mipmapped:FALSE];
+	MTLTextureDescriptor* sobeltxdesc = [MTLTextureDescriptor texture2DDescriptorWithPixelFormat:MTLPixelFormatR8Snorm width:3 height:3 mipmapped:FALSE];
 	id<MTLTexture> x_sobel = [ctx.device newTextureWithDescriptor:sobeltxdesc];
 	
 	const int size = 3;
 	
-	Float32 *xweights = (Float32*)malloc(sizeof(Float32) * size * size);
+	float *xweights = (float*)malloc(sizeof(float) * size * size);
 	
 	xweights[0] = -1.0;
 	xweights[1] = 0.0;
@@ -165,19 +177,19 @@
 	xweights[8] = 1.0;
 	
 	MTLRegion reg = MTLRegionMake2D(0, 0, 3, 3);
-	[x_sobel replaceRegion:reg mipmapLevel:0 withBytes:xweights bytesPerRow:sizeof(Float32)*size];
+	[x_sobel replaceRegion:reg mipmapLevel:0 withBytes:xweights bytesPerRow:sizeof(float)*size];
 	free(xweights);
 	return x_sobel;
 }
 
 +(id<MTLTexture>)SobelFilter3x3_Y:(MUComputeContext*)ctx
 {
-	MTLTextureDescriptor* sobeltxdesc = [MTLTextureDescriptor texture2DDescriptorWithPixelFormat:MTLPixelFormatR32Float width:3 height:3 mipmapped:FALSE];
+	MTLTextureDescriptor* sobeltxdesc = [MTLTextureDescriptor texture2DDescriptorWithPixelFormat:MTLPixelFormatR8Snorm width:3 height:3 mipmapped:FALSE];
 	id<MTLTexture> y_sobel = [ctx.device newTextureWithDescriptor:sobeltxdesc];
 	
 	const int size = 3;
 	
-	Float32 *yweights = (Float32*)malloc(sizeof(Float32) * size * size);
+	float *yweights = (float*)malloc(sizeof(float) * size * size);
 	
 	yweights[0] = -1.0;
 	yweights[1] = -2.0;
@@ -191,19 +203,19 @@
 	
 	
 	MTLRegion reg = MTLRegionMake2D(0, 0, 3, 3);
-	[y_sobel replaceRegion:reg mipmapLevel:0 withBytes:yweights bytesPerRow:sizeof(Float32)*size];
+	[y_sobel replaceRegion:reg mipmapLevel:0 withBytes:yweights bytesPerRow:sizeof(float)*size];
 	free(yweights);
 	return y_sobel;
 }
 
 +(id<MTLTexture>)SobelFilter5x5_X:(MUComputeContext*)ctx
 {
-	MTLTextureDescriptor* sobeltxdesc = [MTLTextureDescriptor texture2DDescriptorWithPixelFormat:MTLPixelFormatR32Float width:5 height:5 mipmapped:FALSE];
+	MTLTextureDescriptor* sobeltxdesc = [MTLTextureDescriptor texture2DDescriptorWithPixelFormat:MTLPixelFormatR8Snorm width:5 height:5 mipmapped:FALSE];
 	id<MTLTexture> x_sobel = [ctx.device newTextureWithDescriptor:sobeltxdesc];
 	
 	const int size = 5;
 	
-	Float32 *xweights = (Float32*)malloc(sizeof(Float32) * size * size);
+	float *xweights = (float*)malloc(sizeof(float) * size * size);
 	
 	xweights[0] = -1.0;
 	xweights[1] = -2.0;
@@ -232,7 +244,7 @@
 	xweights[24] = 1.0;
 	
 	MTLRegion reg = MTLRegionMake2D(0, 0, 5, 5);
-	[x_sobel replaceRegion:reg mipmapLevel:0 withBytes:xweights bytesPerRow:sizeof(Float32)*size];
+	[x_sobel replaceRegion:reg mipmapLevel:0 withBytes:xweights bytesPerRow:sizeof(float)*size];
 	free(xweights);
 	return x_sobel;
 }
@@ -240,12 +252,12 @@
 
 +(id<MTLTexture>)SobelFilter5x5_Y:(MUComputeContext*)ctx
 {
-	MTLTextureDescriptor* sobeltxdesc = [MTLTextureDescriptor texture2DDescriptorWithPixelFormat:MTLPixelFormatR32Float width:5 height:5 mipmapped:FALSE];
+	MTLTextureDescriptor* sobeltxdesc = [MTLTextureDescriptor texture2DDescriptorWithPixelFormat:MTLPixelFormatR8Snorm width:5 height:5 mipmapped:FALSE];
 	id<MTLTexture> y_sobel = [ctx.device newTextureWithDescriptor:sobeltxdesc];
 	
 	const int size = 5;
 	
-	Float32 *yweights = (Float32*)malloc(sizeof(Float32) * size * size);
+	float *yweights = (float*)malloc(sizeof(float) * size * size);
 	
 	yweights[0] = -1.0;
 	yweights[1] = -4.0;
@@ -273,9 +285,20 @@
 	yweights[23] = 4.0;
 	yweights[24] = 1.0;
 	
+	float sum = 0.0;
+	
+	for (int i = 0; i < size*size; i++)
+	{
+		sum += yweights[i];
+	}
+	
+	for (int i = 0; i < size*size; i++)
+	{
+		yweights[i] = yweights[i]/sum;
+	}
 	
 	MTLRegion reg = MTLRegionMake2D(0, 0, 5, 5);
-	[y_sobel replaceRegion:reg mipmapLevel:0 withBytes:yweights bytesPerRow:sizeof(Float32)*size];
+	[y_sobel replaceRegion:reg mipmapLevel:0 withBytes:yweights bytesPerRow:sizeof(float)*size];
 	free(yweights);
 	return y_sobel;
 }

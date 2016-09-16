@@ -7,6 +7,8 @@
 //
 
 #include <metal_stdlib>
+#include <metal_common>
+#include <metal_geometric>
 
 using namespace metal;
 
@@ -97,6 +99,34 @@ kernel void Convolve(texture2d<float, access::read> inTexture [[texture(0)]],
 	outTexture.write(float4(outpix.rgb,1),gid);
 }
 
+kernel void LocalMax_Constant(texture2d<float,access::read> inTexture [[texture(0)]],
+					 texture2d<float,access::write> outTexture [[texture(1)]],
+					 constant float* windowSize [[buffer(2)]] ,
+					 uint2 gid [[thread_position_in_grid]])
+{
+	float4 maxVal = float4(0,0,0,0);
+	uint2 maxIdx = uint2(0,0);
+	int size = int(windowSize[0]);
+	int radius = size/2;
+	outTexture.write(float4(0,0,0,1),gid);
+	for (int i = 0; i < size; ++i)
+	{
+		for (int j = 0; j < size; ++j)
+		{
+			uint2 textureIndex(gid.x + (i - radius), gid.y + (j - radius));
+			float4 color = inTexture.read(textureIndex);
+			if (length_squared(color) > length_squared(maxVal))
+			{
+				maxVal = color;
+				maxIdx = textureIndex;
+			}
+		}
+	}
+	
+	outTexture.write(float4(1,1,1,1),maxIdx);
+	
+}
+
 kernel void Add(texture2d<float, access::read> inTexture [[texture(0)]],
 					 texture2d<float, access::read> weights [[texture(2)]],
 					 texture2d<float, access::write> outTexture [[texture(1)]],
@@ -127,6 +157,32 @@ kernel void Multiply_Constant(texture2d<float, access::read> inTexture [[texture
 					 uint2 gid [[thread_position_in_grid]])
 {
 	outTexture.write(float4(inTexture.read(gid).rgb*coefficient[0],1),gid);
+}
+
+kernel void Clip_Greater_Constant(texture2d<float, access::read> inTexture [[texture(0)]],
+							  constant float *clipValue [[buffer(2)]],
+							  texture2d<float, access::write> outTexture [[texture(1)]],
+							  uint2 gid [[thread_position_in_grid]])
+{
+	float4 outpix(0,0,0,0);
+	if (inTexture.read(gid).r < clipValue[0] || inTexture.read(gid).g < clipValue[0] || inTexture.read(gid).b < clipValue[0])
+	{
+		outpix = float4(inTexture.read(gid).rgb,1);
+	}
+	outTexture.write(float4(outpix.rgb,1),gid);
+}
+
+kernel void Clip_Less_Constant(texture2d<float, access::read> inTexture [[texture(0)]],
+								  constant float *clipValue [[buffer(2)]],
+								  texture2d<float, access::write> outTexture [[texture(1)]],
+								  uint2 gid [[thread_position_in_grid]])
+{
+	float4 outpix(0,0,0,0);
+	if (inTexture.read(gid).r > clipValue[0] || inTexture.read(gid).g > clipValue[0] || inTexture.read(gid).b > clipValue[0])
+	{
+		outpix = float4(inTexture.read(gid).rgb,1);
+	}
+	outTexture.write(float4(outpix.rgb,1),gid);
 }
 
 

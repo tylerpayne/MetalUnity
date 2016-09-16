@@ -120,7 +120,7 @@
 -(id<MTLTexture>)_generateEmptyTexture:(int)rm AtIndex:(char*)idx Width:(int)w Height:(int)h
 {
 	MUResourceManager* resourceManager = ((MUResourceManager*)[self.rms objectAtIndex:rm]);
-	MTLTextureDescriptor *txdesc = [MTLTextureDescriptor texture2DDescriptorWithPixelFormat:MTLPixelFormatRGBA8Unorm width:w height:h mipmapped:FALSE];
+	MTLTextureDescriptor *txdesc = [MTLTextureDescriptor texture2DDescriptorWithPixelFormat:MTLPixelFormatRGBA8Snorm width:w height:h mipmapped:FALSE];
 	id<MTLTexture> newTexture = [self.context.device newTextureWithDescriptor:txdesc];
 	[resourceManager attachTexture:newTexture AtIndex:[NSString stringWithUTF8String:idx]];
 	return newTexture;
@@ -150,6 +150,13 @@
 	resourceManager.mipmaplevel = mipmaplevel;
 	[resourceManager attachOutputTexture];
 	return ((MUTexture*)[[resourceManager resources] objectForKey:@"1"]).tex;
+}
+
+-(float*)_getPixelValue:(id<MTLTexture>)tex Coordinates:(int*)coord BytesPerRow:(int)bpr
+{
+	float* vals = (float*)malloc(sizeof(float)*2);
+	[tex getBytes:vals bytesPerRow:bpr fromRegion:MTLRegionMake2D(coord[0], coord[1], 1, 1) mipmapLevel:0];
+	return vals;
 }
 
 
@@ -255,9 +262,9 @@ extern "C"
 		[MU _fillTextureWithFloat:tex Region:replaceRegion Bytes:data BytesPerRow:sizeof(float)*bpr];
 	}
 	
-	void MUAttachFloatAtIndex(int rm, float f, char* idx)
+	void MUAttachFloatAtIndex(int rm, float* f, char* idx)
 	{
-		[MU _attachFloatAtIndex:rm Val:f AtIndex:idx];
+		[MU _attachFloatAtIndex:rm Val:f[0] AtIndex:idx];
 	}
 	
 	void MUCompute(int cm, int rm)
@@ -273,6 +280,11 @@ extern "C"
 	id<MTLTexture> MUGetOutputTexture(int rm, int mipmaplevel)
 	{
 		return [MU _getOutputTexture:rm MipMapLevelCount:mipmaplevel];
+	}
+	
+	float* MUGetPixelValue(id<MTLTexture> tex, int* coord, int bpr)
+	{
+		return [MU _getPixelValue:tex Coordinates:coord BytesPerRow:bpr];
 	}
 	
 	//Filters

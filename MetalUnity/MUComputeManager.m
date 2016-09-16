@@ -24,7 +24,7 @@
 	self.context = context;
 	id<MTLFunction> mtlfnc = [context.library newFunctionWithName:fnc];
 	self.computeFunction = fnc;
-	NSLog(@"Making Compute PipelineState");
+	NSLog(@"New Compute Manager For Function: %@",self.computeFunction);
 	[self.context.device newComputePipelineStateWithFunction:mtlfnc completionHandler:^(id<MTLComputePipelineState> computePipelineState, NSError * error) {
 		if (!error)
 		{
@@ -52,14 +52,21 @@
 		
 		if (self.resourceManager != nil) {
 			MUTexture*	inTex = [self.resourceManager.resources objectForKey:@"0"];
-			MUTexture* outTex = [self.resourceManager.resources objectForKey:@"1"];
+			//MUTexture* outTex = [self.resourceManager.resources objectForKey:@"1"];
 			
 			[self.resourceManager.resources enumerateKeysAndObjectsUsingBlock:^(NSString* key, id obj, BOOL * _Nonnull stop) {
 				if (obj) {
-					if ([self.computeFunction containsString:@"Constant"] && [key isEqual: @"2"])
+					if ([self.computeFunction containsString:@"Constant"])
 					{
-						[encoder setBytes:[((NSNumber*)obj) pointerValue] length:sizeof(float) atIndex:((NSUInteger)[key integerValue])];
-					} else{
+						if ([key containsString:@"2"])
+						{
+							const float val = [(NSNumber*)obj floatValue];
+							[encoder setBytes:&val length:(NSUInteger)sizeof(float) atIndex:((NSUInteger)[key integerValue])];
+						}
+						
+					}
+					else
+					{
 						[encoder setTexture:((MUTexture*)obj).tex atIndex:((NSUInteger)[key integerValue])];
 					}
 					
@@ -78,12 +85,12 @@
 				}
 			}
 			MTLSize blockDim = MTLSizeMake(imsize.width/threadDim.width, imsize.height/threadDim.height, 1);
-			NSLog(@"OuttexDim: %lu, %lu, %lu ... Newinttex: %lu %lu %lu",(unsigned long)outTex.size.width,(unsigned long)outTex.size.height,(unsigned long)outTex.size.depth,(unsigned long)inTex.size.width,(unsigned long)inTex.size.height,(unsigned long)inTex.size.depth);
-			NSLog(@"Dispatch: threadDim=%lu Blockdim=%lu",(unsigned long)threadDim.width,(unsigned long)blockDim.width);
+			//NSLog(@"OuttexDim: %lu, %lu, %lu ... Newinttex: %lu %lu %lu",(unsigned long)outTex.size.width,(unsigned long)outTex.size.height,(unsigned long)outTex.size.depth,(unsigned long)inTex.size.width,(unsigned long)inTex.size.height,(unsigned long)inTex.size.depth);
+			//NSLog(@"Dispatch: threadDim=%lu Blockdim=%lu",(unsigned long)threadDim.width,(unsigned long)blockDim.width);
 			[encoder dispatchThreadgroups:blockDim threadsPerThreadgroup:threadDim];
 			[encoder endEncoding];
 			[commandBuffer addCompletedHandler:^(id<MTLCommandBuffer> _Nonnull cb) {
-				NSLog(@"Compute Completed");
+				//NSLog(@"Compute Completed");
 			}];
 			[commandBuffer commit];
 			//[commandBuffer waitUntilCompleted];
@@ -109,10 +116,10 @@
 			
 			unsigned long int mipmaplevel = self.resourceManager.mipmaplevel;
 			
-			MTLTextureDescriptor* texdesc = [MTLTextureDescriptor texture2DDescriptorWithPixelFormat:MTLPixelFormatRGBA8Unorm width:inTex.size.width height:inTex.size.height mipmapped:TRUE];
+			MTLTextureDescriptor* texdesc = [MTLTextureDescriptor texture2DDescriptorWithPixelFormat:MTLPixelFormatRGBA8Snorm width:inTex.size.width height:inTex.size.height mipmapped:TRUE];
 			id<MTLTexture> mipmappedInTex = [self.context.device newTextureWithDescriptor:texdesc];
 			
-			MTLTextureDescriptor* newtexdesc = [MTLTextureDescriptor texture2DDescriptorWithPixelFormat:MTLPixelFormatRGBA8Unorm width:outTex.size.width height:outTex.size.height mipmapped:TRUE];
+			MTLTextureDescriptor* newtexdesc = [MTLTextureDescriptor texture2DDescriptorWithPixelFormat:MTLPixelFormatRGBA8Snorm width:outTex.size.width height:outTex.size.height mipmapped:TRUE];
 			id<MTLTexture> newInTex = [self.context.device newTextureWithDescriptor:newtexdesc];
 			
 			[blitCommandEncoder copyFromTexture:inTex.tex sourceSlice:0 sourceLevel:0 sourceOrigin:MTLOriginMake(0, 0, 0) sourceSize:inTex.size toTexture:mipmappedInTex destinationSlice:0 destinationLevel:0 destinationOrigin:MTLOriginMake(0, 0, 0)];

@@ -12,14 +12,10 @@
 #import "MUTexture.h"
 #import "MUComputeContext.h"
 
-@interface MUVideoTexture : NSObject
-
-@property (strong) id<MTLTexture> tex;
-@property (assign) MTLSize size;
+@interface MUVideoTexture : MUTexture
 
 @property (assign) bool isDirty;
 
-+(instancetype)NewEmptyTexture:(MUComputeContext*)context Width:(NSUInteger)w Height:(NSUInteger)h Depth:(NSUInteger)d;
 -(void)CopyDataFromBuffer:(CMSampleBufferRef)buffer;
 
 @end
