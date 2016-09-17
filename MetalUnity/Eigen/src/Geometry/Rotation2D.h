@@ -123,7 +123,7 @@ public:
 
 /** \ingroup Geometry_Module
   * single precision 2D rotation type */
-typedef Rotation2D<float> Rotation2Df;
+typedef Rotation2D<Float32> Rotation2Df;
 /** \ingroup Geometry_Module
   * double precision 2D rotation type */
 typedef Rotation2D<double> Rotation2Dd;

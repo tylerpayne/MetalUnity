@@ -118,7 +118,7 @@ EIGEN_MAKE_ALIGNED_OPERATOR_NEW_IF_VECTORIZABLE_FIXED_SIZE(_Scalar,_AmbientDim)
 
   /** \returns the lengths of the sides of the bounding box.
     * Note that this function does not get the same
-    * result for integral or floating scalar types: see
+    * result for integral or Float32ing scalar types: see
     */
   inline const CwiseBinaryOp< internal::scalar_difference_op<Scalar>, const VectorType, const VectorType> sizes() const
   { return m_max - m_min; }
@@ -362,9 +362,9 @@ inline Scalar AlignedBox<Scalar,AmbientDim>::squaredExteriorDistance(const Align
   * The general patterns are the following:
   *
   * \c AlignedBoxSizeType where \c Size can be \c 1, \c 2,\c 3,\c 4 for fixed size boxes or \c X for dynamic size,
-  * and where \c Type can be \c i for integer, \c f for float, \c d for double.
+  * and where \c Type can be \c i for integer, \c f for Float32, \c d for double.
   *
-  * For example, \c AlignedBox3d is a fixed-size 3x3 aligned box type of doubles, and \c AlignedBoxXf is a dynamic-size aligned box of floats.
+  * For example, \c AlignedBox3d is a fixed-size 3x3 aligned box type of doubles, and \c AlignedBoxXf is a dynamic-size aligned box of Float32s.
   *
   * \sa class AlignedBox
   */
@@ -381,7 +381,7 @@ EIGEN_MAKE_TYPEDEFS(Type, TypeSuffix, 4, 4) \
 EIGEN_MAKE_TYPEDEFS(Type, TypeSuffix, Dynamic, X)
 
 EIGEN_MAKE_TYPEDEFS_ALL_SIZES(int,                  i)
-EIGEN_MAKE_TYPEDEFS_ALL_SIZES(float,                f)
+EIGEN_MAKE_TYPEDEFS_ALL_SIZES(Float32,                f)
 EIGEN_MAKE_TYPEDEFS_ALL_SIZES(double,               d)
 
 #undef EIGEN_MAKE_TYPEDEFS_ALL_SIZES

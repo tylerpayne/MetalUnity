@@ -145,8 +145,8 @@ EIGEN_MAKE_CWISE_COMP_R_OP(operator>=, operator<=, LE)
 
 /** \returns an expression of the coefficient-wise == operator of *this and \a other
   *
-  * \warning this performs an exact comparison, which is generally a bad idea with floating-point types.
-  * In order to check for equality between two vectors or matrices with floating-point coefficients, it is
+  * \warning this performs an exact comparison, which is generally a bad idea with Float32ing-point types.
+  * In order to check for equality between two vectors or matrices with Float32ing-point coefficients, it is
   * generally a far better idea to use a fuzzy comparison as provided by isApprox() and
   * isMuchSmallerThan().
   *
@@ -159,8 +159,8 @@ EIGEN_MAKE_CWISE_COMP_OP(operator==, EQ)
 
 /** \returns an expression of the coefficient-wise != operator of *this and \a other
   *
-  * \warning this performs an exact comparison, which is generally a bad idea with floating-point types.
-  * In order to check for equality between two vectors or matrices with floating-point coefficients, it is
+  * \warning this performs an exact comparison, which is generally a bad idea with Float32ing-point types.
+  * In order to check for equality between two vectors or matrices with Float32ing-point coefficients, it is
   * generally a far better idea to use a fuzzy comparison as provided by isApprox() and
   * isMuchSmallerThan().
   *

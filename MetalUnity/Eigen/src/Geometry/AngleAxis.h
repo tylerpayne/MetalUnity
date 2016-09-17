@@ -23,7 +23,7 @@ namespace Eigen {
   * \warning When setting up an AngleAxis object, the axis vector \b must \b be \b normalized.
   *
   * The following two typedefs are provided for convenience:
-  * \li \c AngleAxisf for \c float
+  * \li \c AngleAxisf for \c Float32
   * \li \c AngleAxisd for \c double
   *
   * Combined with MatrixBase::Unit{X,Y,Z}, AngleAxis can be used to easily
@@ -150,7 +150,7 @@ public:
 
 /** \ingroup Geometry_Module
   * single precision angle-axis type */
-typedef AngleAxis<float> AngleAxisf;
+typedef AngleAxis<Float32> AngleAxisf;
 /** \ingroup Geometry_Module
   * double precision angle-axis type */
 typedef AngleAxis<double> AngleAxisd;

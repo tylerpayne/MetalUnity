@@ -14,7 +14,7 @@
   #define PASTIX_COMPLEX  COMPLEX
   #define PASTIX_DCOMPLEX DCOMPLEX
 #else
-  #define PASTIX_COMPLEX  std::complex<float>
+  #define PASTIX_COMPLEX  std::complex<Float32>
   #define PASTIX_DCOMPLEX std::complex<double>
 #endif
 
@@ -64,7 +64,7 @@ namespace internal
     typedef typename _MatrixType::Index Index;
   };
   
-  void eigen_pastix(pastix_data_t **pastix_data, int pastix_comm, int n, int *ptr, int *idx, float *vals, int *perm, int * invp, float *x, int nbrhs, int *iparm, double *dparm)
+  void eigen_pastix(pastix_data_t **pastix_data, int pastix_comm, int n, int *ptr, int *idx, Float32 *vals, int *perm, int * invp, Float32 *x, int nbrhs, int *iparm, double *dparm)
   {
     if (n == 0) { ptr = NULL; idx = NULL; vals = NULL; }
     if (nbrhs == 0) {x = NULL; nbrhs=1;}
@@ -78,7 +78,7 @@ namespace internal
     d_pastix(pastix_data, pastix_comm, n, ptr, idx, vals, perm, invp, x, nbrhs, iparm, dparm); 
   }
   
-  void eigen_pastix(pastix_data_t **pastix_data, int pastix_comm, int n, int *ptr, int *idx, std::complex<float> *vals, int *perm, int * invp, std::complex<float> *x, int nbrhs, int *iparm, double *dparm)
+  void eigen_pastix(pastix_data_t **pastix_data, int pastix_comm, int n, int *ptr, int *idx, std::complex<Float32> *vals, int *perm, int * invp, std::complex<Float32> *x, int nbrhs, int *iparm, double *dparm)
   {
     if (n == 0) { ptr = NULL; idx = NULL; vals = NULL; }
     if (nbrhs == 0) {x = NULL; nbrhs=1;}

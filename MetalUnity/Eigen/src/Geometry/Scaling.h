@@ -112,7 +112,7 @@ MatrixBase<Derived>::operator*(const UniformScaling<Scalar>& s) const
 { return derived() * s.factor(); }
 
 /** Constructs a uniform scaling from scale factor \a s */
-static inline UniformScaling<float> Scaling(float s) { return UniformScaling<float>(s); }
+static inline UniformScaling<Float32> Scaling(Float32 s) { return UniformScaling<Float32>(s); }
 /** Constructs a uniform scaling from scale factor \a s */
 static inline UniformScaling<double> Scaling(double s) { return UniformScaling<double>(s); }
 /** Constructs a uniform scaling from scale factor \a s */
@@ -139,11 +139,11 @@ static inline const DiagonalWrapper<const Derived> Scaling(const MatrixBase<Deri
 /** \addtogroup Geometry_Module */
 //@{
 /** \deprecated */
-typedef DiagonalMatrix<float, 2> AlignedScaling2f;
+typedef DiagonalMatrix<Float32, 2> AlignedScaling2f;
 /** \deprecated */
 typedef DiagonalMatrix<double,2> AlignedScaling2d;
 /** \deprecated */
-typedef DiagonalMatrix<float, 3> AlignedScaling3f;
+typedef DiagonalMatrix<Float32, 3> AlignedScaling3f;
 /** \deprecated */
 typedef DiagonalMatrix<double,3> AlignedScaling3d;
 //@}

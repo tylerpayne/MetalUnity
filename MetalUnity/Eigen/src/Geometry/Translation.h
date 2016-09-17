@@ -169,9 +169,9 @@ public:
 
 /** \addtogroup Geometry_Module */
 //@{
-typedef Translation<float, 2> Translation2f;
+typedef Translation<Float32, 2> Translation2f;
 typedef Translation<double,2> Translation2d;
-typedef Translation<float, 3> Translation3f;
+typedef Translation<Float32, 3> Translation3f;
 typedef Translation<double,3> Translation3d;
 //@}
 

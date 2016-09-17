@@ -105,7 +105,7 @@ EIGEN_DONT_INLINE void general_matrix_vector_product<Index,LhsScalar,ColMajor,Co
 
   // find how many columns do we have to skip to be aligned with the result (if possible)
   Index skipColumns = 0;
-  // if the data cannot be aligned (TODO add some compile time tests when possible, e.g. for floats)
+  // if the data cannot be aligned (TODO add some compile time tests when possible, e.g. for Float32s)
   if( (size_t(lhs)%sizeof(LhsScalar)) || (size_t(res)%sizeof(ResScalar)) )
   {
     alignedSize = 0;
@@ -368,7 +368,7 @@ EIGEN_DONT_INLINE void general_matrix_vector_product<Index,LhsScalar,RowMajor,Co
 
   // find how many rows do we have to skip to be aligned with rhs (if possible)
   Index skipRows = 0;
-  // if the data cannot be aligned (TODO add some compile time tests when possible, e.g. for floats)
+  // if the data cannot be aligned (TODO add some compile time tests when possible, e.g. for Float32s)
   if( (sizeof(LhsScalar)!=sizeof(RhsScalar)) || (size_t(lhs)%sizeof(LhsScalar)) || (size_t(rhs)%sizeof(RhsScalar)) )
   {
     alignedSize = 0;

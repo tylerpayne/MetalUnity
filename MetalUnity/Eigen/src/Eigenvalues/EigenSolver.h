@@ -84,7 +84,7 @@ template<typename _MatrixType> class EigenSolver
     /** \brief Complex scalar type for #MatrixType. 
       *
       * This is \c std::complex<Scalar> if #Scalar is real (e.g.,
-      * \c float or \c double) and just \c Scalar if #Scalar is
+      * \c Float32 or \c double) and just \c Scalar if #Scalar is
       * complex.
       */
     typedef std::complex<RealScalar> ComplexScalar;

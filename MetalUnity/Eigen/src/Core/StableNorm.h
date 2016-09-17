@@ -68,11 +68,11 @@ blueNorm_impl(const EigenBase<Derived>& _vec)
     // For portability, the PORT subprograms "ilmaeh" and "rlmach"
     // are used. For any specific computer, each of the assignment
     // statements can be replaced
-    ibeta = std::numeric_limits<RealScalar>::radix;                 // base for floating-point numbers
+    ibeta = std::numeric_limits<RealScalar>::radix;                 // base for Float32ing-point numbers
     it    = std::numeric_limits<RealScalar>::digits;                // number of base-beta digits in mantissa
     iemin = std::numeric_limits<RealScalar>::min_exponent;          // minimum exponent
     iemax = std::numeric_limits<RealScalar>::max_exponent;          // maximum exponent
-    rbig  = (std::numeric_limits<RealScalar>::max)();               // largest floating-point number
+    rbig  = (std::numeric_limits<RealScalar>::max)();               // largest Float32ing-point number
 
     iexp  = -((1-iemin)/2);
     b1    = RealScalar(pow(RealScalar(ibeta),RealScalar(iexp)));    // lower boundary of midrange

@@ -531,7 +531,7 @@ struct functor_traits<scalar_multiple2_op<Scalar1,Scalar2> >
   * \brief Template functor to divide a scalar by a fixed other one
   *
   * This functor is used to implement the quotient of a matrix by
-  * a scalar where the scalar type is not necessarily a floating point type.
+  * a scalar where the scalar type is not necessarily a Float32ing point type.
   *
   * \sa class CwiseUnaryOp, MatrixBase::operator/
   */

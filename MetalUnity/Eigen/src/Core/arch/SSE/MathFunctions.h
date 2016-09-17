@@ -29,11 +29,11 @@ Packet4f plog<Packet4f>(const Packet4f& _x)
 
   _EIGEN_DECLARE_CONST_Packet4f_FROM_INT(inv_mant_mask, ~0x7f800000);
 
-  /* the smallest non denormalized float number */
+  /* the smallest non denormalized Float32 number */
   _EIGEN_DECLARE_CONST_Packet4f_FROM_INT(min_norm_pos,  0x00800000);
   _EIGEN_DECLARE_CONST_Packet4f_FROM_INT(minus_inf,     0xff800000);//-1.f/0.f);
   
-  /* natural logarithm computed for 4 simultaneous float
+  /* natural logarithm computed for 4 simultaneous Float32
     return NaN for x <= 0
   */
   _EIGEN_DECLARE_CONST_Packet4f(cephes_SQRTHF, 0.707106781186547524f);
@@ -250,7 +250,7 @@ Packet2d pexp<Packet2d>(const Packet2d& _x)
    -- it does not return garbage for arguments over 8192, though, but
    the extra precision is missing).
 
-   Note that it is such that sinf((float)M_PI) = 8.74e-8, which is the
+   Note that it is such that sinf((Float32)M_PI) = 8.74e-8, which is the
    surprising but correct result.
 */
 
@@ -453,7 +453,7 @@ Packet4f psqrt<Packet4f>(const Packet4f& _x)
   Packet4f half = pmul(_x, pset1<Packet4f>(.5f));
 
   /* select only the inverse sqrt of non-zero inputs */
-  Packet4f non_zero_mask = _mm_cmpge_ps(_x, pset1<Packet4f>((std::numeric_limits<float>::min)()));
+  Packet4f non_zero_mask = _mm_cmpge_ps(_x, pset1<Packet4f>((std::numeric_limits<Float32>::min)()));
   Packet4f x = _mm_and_ps(non_zero_mask, _mm_rsqrt_ps(_x));
 
   x = pmul(x, psub(pset1<Packet4f>(1.5f), pmul(half, pmul(x,x))));

@@ -9,7 +9,7 @@
 // Public License v. 2.0. If a copy of the MPL was not distributed
 // with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-// The SSE code for the 4x4 float and double matrix inverse in this file
+// The SSE code for the 4x4 Float32 and double matrix inverse in this file
 // comes from the following Intel's library:
 // http://software.intel.com/en-us/articles/optimized-matrix-library-for-use-with-the-intel-pentiumr-4-processors-sse2-instructions/
 //
@@ -32,7 +32,7 @@ namespace Eigen {
 namespace internal {
 
 template<typename MatrixType, typename ResultType>
-struct compute_inverse_size4<Architecture::SSE, float, MatrixType, ResultType>
+struct compute_inverse_size4<Architecture::SSE, Float32, MatrixType, ResultType>
 {
   enum {
     MatrixAlignment     = bool(MatrixType::Flags&AlignedBit),
@@ -137,7 +137,7 @@ struct compute_inverse_size4<Architecture::SSE, float, MatrixType, ResultType>
     iC = _mm_sub_ps(iC, _mm_mul_ps(_mm_shuffle_ps(A,A,0xB1), _mm_shuffle_ps(DC,DC,0x66)));
 
     rd = _mm_shuffle_ps(rd,rd,0);
-    rd = _mm_xor_ps(rd, _mm_load_ps((float*)_Sign_PNNP));
+    rd = _mm_xor_ps(rd, _mm_load_ps((Float32*)_Sign_PNNP));
 
     //  iB = C*|B| - D*B#*A
     iB = _mm_sub_ps(_mm_mul_ps(C,_mm_shuffle_ps(dB,dB,0)), iB);

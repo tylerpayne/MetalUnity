@@ -257,13 +257,13 @@ class Array
   * The general patterns are the following:
   *
   * \c ArrayRowsColsType where \c Rows and \c Cols can be \c 2,\c 3,\c 4 for fixed size square matrices or \c X for dynamic size,
-  * and where \c Type can be \c i for integer, \c f for float, \c d for double, \c cf for complex float, \c cd
+  * and where \c Type can be \c i for integer, \c f for Float32, \c d for double, \c cf for complex Float32, \c cd
   * for complex double.
   *
-  * For example, \c Array33d is a fixed-size 3x3 array type of doubles, and \c ArrayXXf is a dynamic-size matrix of floats.
+  * For example, \c Array33d is a fixed-size 3x3 array type of doubles, and \c ArrayXXf is a dynamic-size matrix of Float32s.
   *
   * There are also \c ArraySizeType which are self-explanatory. For example, \c Array4cf is
-  * a fixed-size 1D array of 4 complex floats.
+  * a fixed-size 1D array of 4 complex Float32s.
   *
   * \sa class Array
   */
@@ -290,9 +290,9 @@ EIGEN_MAKE_ARRAY_FIXED_TYPEDEFS(Type, TypeSuffix, 3) \
 EIGEN_MAKE_ARRAY_FIXED_TYPEDEFS(Type, TypeSuffix, 4)
 
 EIGEN_MAKE_ARRAY_TYPEDEFS_ALL_SIZES(int,                  i)
-EIGEN_MAKE_ARRAY_TYPEDEFS_ALL_SIZES(float,                f)
+EIGEN_MAKE_ARRAY_TYPEDEFS_ALL_SIZES(Float32,                f)
 EIGEN_MAKE_ARRAY_TYPEDEFS_ALL_SIZES(double,               d)
-EIGEN_MAKE_ARRAY_TYPEDEFS_ALL_SIZES(std::complex<float>,  cf)
+EIGEN_MAKE_ARRAY_TYPEDEFS_ALL_SIZES(std::complex<Float32>,  cf)
 EIGEN_MAKE_ARRAY_TYPEDEFS_ALL_SIZES(std::complex<double>, cd)
 
 #undef EIGEN_MAKE_ARRAY_TYPEDEFS_ALL_SIZES

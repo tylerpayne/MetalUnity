@@ -69,8 +69,8 @@ EIGEN_MKL_TRMM_SPECIALIZE(double, true)
 EIGEN_MKL_TRMM_SPECIALIZE(double, false)
 EIGEN_MKL_TRMM_SPECIALIZE(dcomplex, true)
 EIGEN_MKL_TRMM_SPECIALIZE(dcomplex, false)
-EIGEN_MKL_TRMM_SPECIALIZE(float, true)
-EIGEN_MKL_TRMM_SPECIALIZE(float, false)
+EIGEN_MKL_TRMM_SPECIALIZE(Float32, true)
+EIGEN_MKL_TRMM_SPECIALIZE(Float32, false)
 EIGEN_MKL_TRMM_SPECIALIZE(scomplex, true)
 EIGEN_MKL_TRMM_SPECIALIZE(scomplex, false)
 
@@ -185,7 +185,7 @@ struct product_triangular_matrix_matrix_trmm<EIGTYPE,Index,Mode,true, \
 
 EIGEN_MKL_TRMM_L(double, double, d, d)
 EIGEN_MKL_TRMM_L(dcomplex, MKL_Complex16, cd, z)
-EIGEN_MKL_TRMM_L(float, float, f, s)
+EIGEN_MKL_TRMM_L(Float32, Float32, f, s)
 EIGEN_MKL_TRMM_L(scomplex, MKL_Complex8, cf, c)
 
 // implements col-major += alpha * op(general) * op(triangular)
@@ -299,7 +299,7 @@ struct product_triangular_matrix_matrix_trmm<EIGTYPE,Index,Mode,false, \
 
 EIGEN_MKL_TRMM_R(double, double, d, d)
 EIGEN_MKL_TRMM_R(dcomplex, MKL_Complex16, cd, z)
-EIGEN_MKL_TRMM_R(float, float, f, s)
+EIGEN_MKL_TRMM_R(Float32, Float32, f, s)
 EIGEN_MKL_TRMM_R(scomplex, MKL_Complex8, cf, c)
 
 } // end namespace internal

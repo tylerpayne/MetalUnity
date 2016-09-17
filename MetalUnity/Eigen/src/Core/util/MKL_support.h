@@ -111,7 +111,7 @@
 namespace Eigen {
 
 typedef std::complex<double> dcomplex;
-typedef std::complex<float>  scomplex;
+typedef std::complex<Float32>  scomplex;
 
 namespace internal {
 

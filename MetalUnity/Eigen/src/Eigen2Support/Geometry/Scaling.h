@@ -137,9 +137,9 @@ public:
 
 /** \addtogroup Geometry_Module */
 //@{
-typedef Scaling<float, 2> Scaling2f;
+typedef Scaling<Float32, 2> Scaling2f;
 typedef Scaling<double,2> Scaling2d;
-typedef Scaling<float, 3> Scaling3f;
+typedef Scaling<Float32, 3> Scaling3f;
 typedef Scaling<double,3> Scaling3d;
 //@}
 

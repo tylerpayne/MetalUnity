@@ -222,7 +222,7 @@ struct sparse_solve_triangular_sparse_selector<Lhs,Rhs,Mode,UpLo,ColMajor>
     for(int col=0 ; col<other.cols() ; ++col)
     {
       // FIXME estimate number of non zeros
-      tempVector.init(.99/*float(other.col(col).nonZeros())/float(other.rows())*/);
+      tempVector.init(.99/*Float32(other.col(col).nonZeros())/Float32(other.rows())*/);
       tempVector.setZero();
       tempVector.restart();
       for (typename Rhs::InnerIterator rhsIt(other, col); rhsIt; ++rhsIt)

@@ -26,8 +26,8 @@ cwiseProduct(const EIGEN_CURRENT_STORAGE_BASE_CLASS<OtherDerived> &other) const
 
 /** \returns an expression of the coefficient-wise == operator of *this and \a other
   *
-  * \warning this performs an exact comparison, which is generally a bad idea with floating-point types.
-  * In order to check for equality between two vectors or matrices with floating-point coefficients, it is
+  * \warning this performs an exact comparison, which is generally a bad idea with Float32ing-point types.
+  * In order to check for equality between two vectors or matrices with Float32ing-point coefficients, it is
   * generally a far better idea to use a fuzzy comparison as provided by isApprox() and
   * isMuchSmallerThan().
   *
@@ -45,8 +45,8 @@ cwiseEqual(const EIGEN_CURRENT_STORAGE_BASE_CLASS<OtherDerived> &other) const
 
 /** \returns an expression of the coefficient-wise != operator of *this and \a other
   *
-  * \warning this performs an exact comparison, which is generally a bad idea with floating-point types.
-  * In order to check for equality between two vectors or matrices with floating-point coefficients, it is
+  * \warning this performs an exact comparison, which is generally a bad idea with Float32ing-point types.
+  * In order to check for equality between two vectors or matrices with Float32ing-point coefficients, it is
   * generally a far better idea to use a fuzzy comparison as provided by isApprox() and
   * isMuchSmallerThan().
   *
@@ -129,8 +129,8 @@ typedef CwiseBinaryOp<internal::scalar_cmp_op<Scalar,internal::cmp_EQ>, const De
 
 /** \returns an expression of the coefficient-wise == operator of \c *this and a scalar \a s
   *
-  * \warning this performs an exact comparison, which is generally a bad idea with floating-point types.
-  * In order to check for equality between two vectors or matrices with floating-point coefficients, it is
+  * \warning this performs an exact comparison, which is generally a bad idea with Float32ing-point types.
+  * In order to check for equality between two vectors or matrices with Float32ing-point coefficients, it is
   * generally a far better idea to use a fuzzy comparison as provided by isApprox() and
   * isMuchSmallerThan().
   *

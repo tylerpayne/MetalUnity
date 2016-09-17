@@ -279,9 +279,9 @@ protected:
 };
 
 /** \ingroup Geometry_Module */
-typedef Transform<float,2> Transform2f;
+typedef Transform<Float32,2> Transform2f;
 /** \ingroup Geometry_Module */
-typedef Transform<float,3> Transform3f;
+typedef Transform<Float32,3> Transform3f;
 /** \ingroup Geometry_Module */
 typedef Transform<double,2> Transform2d;
 /** \ingroup Geometry_Module */

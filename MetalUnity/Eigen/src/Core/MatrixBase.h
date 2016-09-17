@@ -280,7 +280,7 @@ template<typename Derived> class MatrixBase
     bool isUnitary(const RealScalar& prec = NumTraits<Scalar>::dummy_precision()) const;
 
     /** \returns true if each coefficients of \c *this and \a other are all exactly equal.
-      * \warning When using floating point scalar values you probably should rather use a
+      * \warning When using Float32ing point scalar values you probably should rather use a
       *          fuzzy comparison such as isApprox()
       * \sa isApprox(), operator!= */
     template<typename OtherDerived>
@@ -288,7 +288,7 @@ template<typename Derived> class MatrixBase
     { return cwiseEqual(other).all(); }
 
     /** \returns true if at least one pair of coefficients of \c *this and \a other are not exactly equal to each other.
-      * \warning When using floating point scalar values you probably should rather use a
+      * \warning When using Float32ing point scalar values you probably should rather use a
       *          fuzzy comparison such as isApprox()
       * \sa isApprox(), operator== */
     template<typename OtherDerived>

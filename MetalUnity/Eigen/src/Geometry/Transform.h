@@ -656,36 +656,36 @@ protected:
 };
 
 /** \ingroup Geometry_Module */
-typedef Transform<float,2,Isometry> Isometry2f;
+typedef Transform<Float32,2,Isometry> Isometry2f;
 /** \ingroup Geometry_Module */
-typedef Transform<float,3,Isometry> Isometry3f;
+typedef Transform<Float32,3,Isometry> Isometry3f;
 /** \ingroup Geometry_Module */
 typedef Transform<double,2,Isometry> Isometry2d;
 /** \ingroup Geometry_Module */
 typedef Transform<double,3,Isometry> Isometry3d;
 
 /** \ingroup Geometry_Module */
-typedef Transform<float,2,Affine> Affine2f;
+typedef Transform<Float32,2,Affine> Affine2f;
 /** \ingroup Geometry_Module */
-typedef Transform<float,3,Affine> Affine3f;
+typedef Transform<Float32,3,Affine> Affine3f;
 /** \ingroup Geometry_Module */
 typedef Transform<double,2,Affine> Affine2d;
 /** \ingroup Geometry_Module */
 typedef Transform<double,3,Affine> Affine3d;
 
 /** \ingroup Geometry_Module */
-typedef Transform<float,2,AffineCompact> AffineCompact2f;
+typedef Transform<Float32,2,AffineCompact> AffineCompact2f;
 /** \ingroup Geometry_Module */
-typedef Transform<float,3,AffineCompact> AffineCompact3f;
+typedef Transform<Float32,3,AffineCompact> AffineCompact3f;
 /** \ingroup Geometry_Module */
 typedef Transform<double,2,AffineCompact> AffineCompact2d;
 /** \ingroup Geometry_Module */
 typedef Transform<double,3,AffineCompact> AffineCompact3d;
 
 /** \ingroup Geometry_Module */
-typedef Transform<float,2,Projective> Projective2f;
+typedef Transform<Float32,2,Projective> Projective2f;
 /** \ingroup Geometry_Module */
-typedef Transform<float,3,Projective> Projective3f;
+typedef Transform<Float32,3,Projective> Projective3f;
 /** \ingroup Geometry_Module */
 typedef Transform<double,2,Projective> Projective2d;
 /** \ingroup Geometry_Module */

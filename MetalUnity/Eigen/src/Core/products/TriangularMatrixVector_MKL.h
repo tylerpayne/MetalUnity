@@ -66,7 +66,7 @@ struct triangular_matrix_vector_product<Index,Mode,Scalar,ConjLhs,Scalar,ConjRhs
 };
 
 EIGEN_MKL_TRMV_SPECIALIZE(double)
-EIGEN_MKL_TRMV_SPECIALIZE(float)
+EIGEN_MKL_TRMV_SPECIALIZE(Float32)
 EIGEN_MKL_TRMV_SPECIALIZE(dcomplex)
 EIGEN_MKL_TRMV_SPECIALIZE(scomplex)
 
@@ -152,7 +152,7 @@ struct triangular_matrix_vector_product_trmv<Index,Mode,EIGTYPE,ConjLhs,EIGTYPE,
 
 EIGEN_MKL_TRMV_CM(double, double, d, d)
 EIGEN_MKL_TRMV_CM(dcomplex, MKL_Complex16, cd, z)
-EIGEN_MKL_TRMV_CM(float, float, f, s)
+EIGEN_MKL_TRMV_CM(Float32, Float32, f, s)
 EIGEN_MKL_TRMV_CM(scomplex, MKL_Complex8, cf, c)
 
 // implements row-major: res += alpha * op(triangular) * vector
@@ -237,7 +237,7 @@ struct triangular_matrix_vector_product_trmv<Index,Mode,EIGTYPE,ConjLhs,EIGTYPE,
 
 EIGEN_MKL_TRMV_RM(double, double, d, d)
 EIGEN_MKL_TRMV_RM(dcomplex, MKL_Complex16, cd, z)
-EIGEN_MKL_TRMV_RM(float, float, f, s)
+EIGEN_MKL_TRMV_RM(Float32, Float32, f, s)
 EIGEN_MKL_TRMV_RM(scomplex, MKL_Complex8, cf, c)
 
 } // end namespase internal

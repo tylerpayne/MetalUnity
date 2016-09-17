@@ -54,7 +54,7 @@ template<typename T> struct remove_all<T const*>  { typedef typename remove_all<
 template<typename T> struct remove_all<T*>        { typedef typename remove_all<T>::type type; };
 
 template<typename T> struct is_arithmetic      { enum { value = false }; };
-template<> struct is_arithmetic<float>         { enum { value = true }; };
+template<> struct is_arithmetic<Float32>         { enum { value = true }; };
 template<> struct is_arithmetic<double>        { enum { value = true }; };
 template<> struct is_arithmetic<long double>   { enum { value = true }; };
 template<> struct is_arithmetic<bool>          { enum { value = true }; };

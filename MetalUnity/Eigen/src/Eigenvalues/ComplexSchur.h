@@ -68,7 +68,7 @@ template<typename _MatrixType> class ComplexSchur
     /** \brief Complex scalar type for \p _MatrixType. 
       *
       * This is \c std::complex<Scalar> if #Scalar is real (e.g.,
-      * \c float or \c double) and just \c Scalar if #Scalar is
+      * \c Float32 or \c double) and just \c Scalar if #Scalar is
       * complex.
       */
     typedef std::complex<RealScalar> ComplexScalar;
@@ -257,7 +257,7 @@ template<typename _MatrixType> class ComplexSchur
     friend struct internal::complex_schur_reduce_to_hessenberg<MatrixType, NumTraits<Scalar>::IsComplex>;
 };
 
-/** If m_matT(i+1,i) is neglegible in floating point arithmetic
+/** If m_matT(i+1,i) is neglegible in Float32ing point arithmetic
   * compared to m_matT(i,i) and m_matT(j,j), then set it to zero and
   * return true, else return false. */
 template<typename MatrixType>

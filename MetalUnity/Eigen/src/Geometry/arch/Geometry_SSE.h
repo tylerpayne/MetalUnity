@@ -16,12 +16,12 @@ namespace Eigen {
 namespace internal {
 
 template<class Derived, class OtherDerived>
-struct quat_product<Architecture::SSE, Derived, OtherDerived, float, Aligned>
+struct quat_product<Architecture::SSE, Derived, OtherDerived, Float32, Aligned>
 {
-  static inline Quaternion<float> run(const QuaternionBase<Derived>& _a, const QuaternionBase<OtherDerived>& _b)
+  static inline Quaternion<Float32> run(const QuaternionBase<Derived>& _a, const QuaternionBase<OtherDerived>& _b)
   {
     const __m128 mask = _mm_castsi128_ps(_mm_setr_epi32(0,0,0,0x80000000));
-    Quaternion<float> res;
+    Quaternion<Float32> res;
     __m128 a = _a.coeffs().template packet<Aligned>(0);
     __m128 b = _b.coeffs().template packet<Aligned>(0);
     __m128 flip1 = _mm_xor_ps(_mm_mul_ps(vec4f_swizzle1(a,1,2,0,2),
@@ -38,7 +38,7 @@ struct quat_product<Architecture::SSE, Derived, OtherDerived, float, Aligned>
 };
 
 template<typename VectorLhs,typename VectorRhs>
-struct cross3_impl<Architecture::SSE,VectorLhs,VectorRhs,float,true>
+struct cross3_impl<Architecture::SSE,VectorLhs,VectorRhs,Float32,true>
 {
   static inline typename plain_matrix_type<VectorLhs>::type
   run(const VectorLhs& lhs, const VectorRhs& rhs)

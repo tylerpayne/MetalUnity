@@ -64,7 +64,7 @@ template <typename VectorType>
 Index  SparseLUImpl<Scalar,Index>::expand(VectorType& vec, Index& length, Index nbElts, Index keep_prev, Index& num_expansions) 
 {
   
-  float alpha = 1.5; // Ratio of the memory increase 
+  Float32 alpha = 1.5; // Ratio of the memory increase 
   Index new_len; // New size of the allocated memory
   
   if(num_expansions == 0 || keep_prev) 

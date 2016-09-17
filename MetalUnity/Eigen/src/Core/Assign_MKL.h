@@ -172,7 +172,7 @@ EIGEN_MKL_VML_SPECIALIZE_ASSIGN(SliceVectorizedTraversal,NoUnrolling)
   };
 
 #define EIGEN_MKL_VML_DECLARE_UNARY_CALLS_REAL(EIGENOP, VMLOP)                   \
-  EIGEN_MKL_VML_DECLARE_UNARY_CALL(EIGENOP, vs##VMLOP, float, float)             \
+  EIGEN_MKL_VML_DECLARE_UNARY_CALL(EIGENOP, vs##VMLOP, Float32, Float32)             \
   EIGEN_MKL_VML_DECLARE_UNARY_CALL(EIGENOP, vd##VMLOP, double, double)
 
 #define EIGEN_MKL_VML_DECLARE_UNARY_CALLS_COMPLEX(EIGENOP, VMLOP)                \
@@ -185,7 +185,7 @@ EIGEN_MKL_VML_SPECIALIZE_ASSIGN(SliceVectorizedTraversal,NoUnrolling)
 
 
 #define EIGEN_MKL_VML_DECLARE_UNARY_CALLS_REAL_LA(EIGENOP, VMLOP)                \
-  EIGEN_MKL_VML_DECLARE_UNARY_CALL_LA(EIGENOP, vms##VMLOP, float, float)         \
+  EIGEN_MKL_VML_DECLARE_UNARY_CALL_LA(EIGENOP, vms##VMLOP, Float32, Float32)         \
   EIGEN_MKL_VML_DECLARE_UNARY_CALL_LA(EIGENOP, vmd##VMLOP, double, double)
 
 #define EIGEN_MKL_VML_DECLARE_UNARY_CALLS_COMPLEX_LA(EIGENOP, VMLOP)             \
@@ -211,7 +211,7 @@ EIGEN_MKL_VML_DECLARE_UNARY_CALLS_REAL(square, Sqr)
 
 // The vm*powx functions are not avaibale in the windows version of MKL.
 #ifndef _WIN32
-EIGEN_MKL_VML_DECLARE_POW_CALL(pow, vmspowx_, float, float)
+EIGEN_MKL_VML_DECLARE_POW_CALL(pow, vmspowx_, Float32, Float32)
 EIGEN_MKL_VML_DECLARE_POW_CALL(pow, vmdpowx_, double, double)
 EIGEN_MKL_VML_DECLARE_POW_CALL(pow, vmcpowx_, scomplex, MKL_Complex8)
 EIGEN_MKL_VML_DECLARE_POW_CALL(pow, vmzpowx_, dcomplex, MKL_Complex16)

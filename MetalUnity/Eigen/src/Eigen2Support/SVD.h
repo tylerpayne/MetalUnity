@@ -242,7 +242,7 @@ void SVD<MatrixType>::compute(const MatrixType& matrix)
   // Main iteration loop for the singular values.
   int pp = p-1;
   int iter = 0;
-  Scalar eps = ei_pow(Scalar(2),ei_is_same_type<Scalar,float>::ret ? Scalar(-23) : Scalar(-52));
+  Scalar eps = ei_pow(Scalar(2),ei_is_same_type<Scalar,Float32>::ret ? Scalar(-23) : Scalar(-52));
   while (p > 0)
   {
     int k=0;

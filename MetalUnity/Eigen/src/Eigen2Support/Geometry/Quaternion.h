@@ -32,7 +32,7 @@ struct ei_quaternion_assign_impl;
   * \li \b stable spherical interpolation
   *
   * The following two typedefs are provided for convenience:
-  * \li \c Quaternionf for \c float
+  * \li \c Quaternionf for \c Float32
   * \li \c Quaterniond for \c double
   *
   * \sa  class AngleAxis, class Transform
@@ -205,7 +205,7 @@ protected:
 
 /** \ingroup Geometry_Module
   * single precision quaternion type */
-typedef Quaternion<float> Quaternionf;
+typedef Quaternion<Float32> Quaternionf;
 /** \ingroup Geometry_Module
   * double precision quaternion type */
 typedef Quaternion<double> Quaterniond;

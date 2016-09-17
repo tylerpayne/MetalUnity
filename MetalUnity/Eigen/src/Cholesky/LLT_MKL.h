@@ -91,7 +91,7 @@ template<> struct llt_inplace<EIGTYPE, Upper> \
 };
 
 EIGEN_MKL_LLT(double, double, d)
-EIGEN_MKL_LLT(float, float, s)
+EIGEN_MKL_LLT(Float32, Float32, s)
 EIGEN_MKL_LLT(dcomplex, MKL_Complex16, z)
 EIGEN_MKL_LLT(scomplex, MKL_Complex8, c)
 

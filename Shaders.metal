@@ -19,28 +19,28 @@ kernel void SobelGradient_Magnitude(texture2d<float, access::read> inTexture [[t
                              texture2d<float, access::write> outTexture [[texture(1)]],
                              uint2 gid [[thread_position_in_grid]])
 {
-    float size = x_weights.get_width();
-    int radius = size / 2;
-    
-    float4 xaccumColor(0,0,0,0);
-	float4 yaccumColor(0,0,0,0);
-	float4 outpix(0,0,0,0);
-    for (int i = 0; i < size; ++i)
-    {
-        for (int j = 0; j < size; ++j)
-        {
-            uint2 kernelIndex(i, j);
-            uint2 textureIndex(gid.x + (i - radius), gid.y + (j - radius));
-            float4 color = inTexture.read(textureIndex).rgba;
-            float xweight = x_weights.read(kernelIndex).r;
-            xaccumColor += xweight * color;
+	float size = x_weights.get_width();
+	int radius = size / 2;
+	
+	float xaccumColor;
+	float yaccumColor;
+	float outpix;
+	for (int i = 0; i < size; ++i)
+	{
+		for (int j = 0; j < size; ++j)
+		{
+			uint2 kernelIndex(i, j);
+			uint2 textureIndex(gid.x + (i - radius), gid.y + (j - radius));
+			float color = length_squared(inTexture.read(textureIndex));
+			float xweight = x_weights.read(kernelIndex).r;
+			xaccumColor += xweight * color;
 			float yweight = y_weights.read(kernelIndex).r;
 			yaccumColor += yweight * color;
-		
-        }
-    }
+			
+		}
+	}
 	outpix = sqrt((xaccumColor*xaccumColor)+(yaccumColor*yaccumColor));
-	outTexture.write(float4(outpix.rgb,1),gid);
+	outTexture.write(outpix,gid);
 }
 
 kernel void SobelGradient_Sum(texture2d<float, access::read> inTexture [[texture(0)]],
@@ -52,16 +52,16 @@ kernel void SobelGradient_Sum(texture2d<float, access::read> inTexture [[texture
 	float size = x_weights.get_width();
 	int radius = size / 2;
 	
-	float4 xaccumColor(0,0,0,0);
-	float4 yaccumColor(0,0,0,0);
-	float4 outpix(0,0,0,0);
+	float xaccumColor;
+	float yaccumColor;
+	float outpix;
 	for (int i = 0; i < size; ++i)
 	{
 		for (int j = 0; j < size; ++j)
 		{
 			uint2 kernelIndex(i, j);
 			uint2 textureIndex(gid.x + (i - radius), gid.y + (j - radius));
-			float4 color = inTexture.read(textureIndex).rgba;
+			float color = length_squared(inTexture.read(textureIndex));
 			float xweight = x_weights.read(kernelIndex).r;
 			xaccumColor += xweight * color;
 			float yweight = y_weights.read(kernelIndex).r;
@@ -70,7 +70,7 @@ kernel void SobelGradient_Sum(texture2d<float, access::read> inTexture [[texture
 		}
 	}
 	outpix = xaccumColor + yaccumColor;
-	outTexture.write(float4(outpix.rgb,1),gid);
+	outTexture.write(outpix,gid);
 }
 
 kernel void Convolve(texture2d<float, access::read> inTexture [[texture(0)]],
@@ -81,22 +81,22 @@ kernel void Convolve(texture2d<float, access::read> inTexture [[texture(0)]],
 	float size = weights.get_width();
 	int radius = size / 2;
 	
-	float4 accumColor(0, 0, 0, 0);
-	float4 outpix(0,0,0,0);
+	float accumColor;
+	float outpix;
 	for (int i = 0; i < size; ++i)
 	{
 		for (int j = 0; j < size; ++j)
 		{
 			uint2 kernelIndex(i, j);
 			uint2 textureIndex(gid.x + (i - radius), gid.y + (j - radius));
-			float4 color = inTexture.read(textureIndex);
+			float color = length_squared(inTexture.read(textureIndex));
 			float weight = weights.read(kernelIndex).r;
 			accumColor += weight * color;
 			
 		}
 	}
 	outpix = accumColor;
-	outTexture.write(float4(outpix.rgb,1),gid);
+	outTexture.write(outpix,gid);
 }
 
 kernel void LocalMax_Constant(texture2d<float,access::read> inTexture [[texture(0)]],
@@ -123,7 +123,7 @@ kernel void LocalMax_Constant(texture2d<float,access::read> inTexture [[texture(
 		}
 	}
 	
-	outTexture.write(float4(1,1,1,1),maxIdx);
+	outTexture.write(maxVal,maxIdx);
 	
 }
 

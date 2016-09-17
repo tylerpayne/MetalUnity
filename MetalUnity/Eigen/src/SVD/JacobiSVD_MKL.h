@@ -78,14 +78,14 @@ JacobiSVD<Matrix<EIGTYPE, Dynamic, Dynamic, EIGCOLROW, Dynamic, Dynamic>, ColPiv
 }
 
 EIGEN_MKL_SVD(double,   double,        double, d, ColMajor, LAPACK_COL_MAJOR)
-EIGEN_MKL_SVD(float,    float,         float , s, ColMajor, LAPACK_COL_MAJOR)
+EIGEN_MKL_SVD(Float32,    Float32,         Float32 , s, ColMajor, LAPACK_COL_MAJOR)
 EIGEN_MKL_SVD(dcomplex, MKL_Complex16, double, z, ColMajor, LAPACK_COL_MAJOR)
-EIGEN_MKL_SVD(scomplex, MKL_Complex8,  float , c, ColMajor, LAPACK_COL_MAJOR)
+EIGEN_MKL_SVD(scomplex, MKL_Complex8,  Float32 , c, ColMajor, LAPACK_COL_MAJOR)
 
 EIGEN_MKL_SVD(double,   double,        double, d, RowMajor, LAPACK_ROW_MAJOR)
-EIGEN_MKL_SVD(float,    float,         float , s, RowMajor, LAPACK_ROW_MAJOR)
+EIGEN_MKL_SVD(Float32,    Float32,         Float32 , s, RowMajor, LAPACK_ROW_MAJOR)
 EIGEN_MKL_SVD(dcomplex, MKL_Complex16, double, z, RowMajor, LAPACK_ROW_MAJOR)
-EIGEN_MKL_SVD(scomplex, MKL_Complex8,  float , c, RowMajor, LAPACK_ROW_MAJOR)
+EIGEN_MKL_SVD(scomplex, MKL_Complex8,  Float32 , c, RowMajor, LAPACK_ROW_MAJOR)
 
 } // end namespace Eigen
 

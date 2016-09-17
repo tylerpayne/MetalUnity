@@ -161,7 +161,7 @@ class BandMatrixBase : public EigenBase<Derived>
   *
   * \brief Represents a rectangular matrix with a banded storage
   *
-  * \param _Scalar Numeric type, i.e. float, double, int
+  * \param _Scalar Numeric type, i.e. Float32, double, int
   * \param Rows Number of rows, or \b Dynamic
   * \param Cols Number of columns, or \b Dynamic
   * \param Supers Number of super diagonal
@@ -302,7 +302,7 @@ class BandMatrixWrapper : public BandMatrixBase<BandMatrixWrapper<_CoefficientsT
   *
   * \brief Represents a tridiagonal matrix with a compact banded storage
   *
-  * \param _Scalar Numeric type, i.e. float, double, int
+  * \param _Scalar Numeric type, i.e. Float32, double, int
   * \param Size Number of rows and cols, or \b Dynamic
   * \param _Options Can be 0 or \b SelfAdjoint
   *

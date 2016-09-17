@@ -88,7 +88,7 @@ struct triangular_solve_matrix<EIGTYPE,Index,OnTheLeft,Mode,Conjugate,TriStorage
 
 EIGEN_MKL_TRSM_L(double, double, d)
 EIGEN_MKL_TRSM_L(dcomplex, MKL_Complex16, z)
-EIGEN_MKL_TRSM_L(float, float, s)
+EIGEN_MKL_TRSM_L(Float32, Float32, s)
 EIGEN_MKL_TRSM_L(scomplex, MKL_Complex8, c)
 
 
@@ -144,7 +144,7 @@ struct triangular_solve_matrix<EIGTYPE,Index,OnTheRight,Mode,Conjugate,TriStorag
 
 EIGEN_MKL_TRSM_R(double, double, d)
 EIGEN_MKL_TRSM_R(dcomplex, MKL_Complex16, z)
-EIGEN_MKL_TRSM_R(float, float, s)
+EIGEN_MKL_TRSM_R(Float32, Float32, s)
 EIGEN_MKL_TRSM_R(scomplex, MKL_Complex8, c)
 
 

@@ -17,7 +17,7 @@
 
 +(id<MTLTexture>)GaussianFilterStd:(float)sigma Width:(int)w Context:(MUComputeContext*)ctx
 {
-	MTLTextureDescriptor* txdesc = [MTLTextureDescriptor texture2DDescriptorWithPixelFormat:MTLPixelFormatR8Snorm width:w height:w mipmapped:FALSE];
+	MTLTextureDescriptor* txdesc = [MTLTextureDescriptor texture2DDescriptorWithPixelFormat:MTLPixelFormatR32Float width:w height:w mipmapped:FALSE];
 	id<MTLTexture> gaussian = [ctx.device newTextureWithDescriptor:txdesc];
 	
 	float *weights = (float*)malloc(sizeof(float) * w * w);
@@ -48,7 +48,7 @@
 
 +(id<MTLTexture>)DifferenceOfGaussian:(float)sigma Width:(int)w Context:(MUComputeContext*)ctx
 {
-	MTLTextureDescriptor* txdesc = [MTLTextureDescriptor texture2DDescriptorWithPixelFormat:MTLPixelFormatR8Snorm width:w height:w mipmapped:FALSE];
+	MTLTextureDescriptor* txdesc = [MTLTextureDescriptor texture2DDescriptorWithPixelFormat:MTLPixelFormatR32Float width:w height:w mipmapped:FALSE];
 	id<MTLTexture> gaussian = [ctx.device newTextureWithDescriptor:txdesc];
 	
 	float *weights = (float*)malloc(sizeof(float) * w * w);
@@ -90,7 +90,7 @@
 
 +(id<MTLTexture>)LaplacianOfGaussian:(float)sigma Width:(int)w Context:(MUComputeContext*)ctx
 {
-	MTLTextureDescriptor* txdesc = [MTLTextureDescriptor texture2DDescriptorWithPixelFormat:MTLPixelFormatR8Snorm width:w height:w mipmapped:FALSE];
+	MTLTextureDescriptor* txdesc = [MTLTextureDescriptor texture2DDescriptorWithPixelFormat:MTLPixelFormatR32Float width:w height:w mipmapped:FALSE];
 	id<MTLTexture> LoG = [ctx.device newTextureWithDescriptor:txdesc];
 	
 	float *weights = (float*)malloc(sizeof(float) * w * w);
@@ -122,7 +122,7 @@
 
 +(id<MTLTexture>)LaplacianOperator3x3:(MUComputeContext*)ctx
 {
-	MTLTextureDescriptor* laplacianTexDesc = [MTLTextureDescriptor texture2DDescriptorWithPixelFormat:MTLPixelFormatR8Snorm width:3 height:3 mipmapped:FALSE];
+	MTLTextureDescriptor* laplacianTexDesc = [MTLTextureDescriptor texture2DDescriptorWithPixelFormat:MTLPixelFormatR32Float width:3 height:3 mipmapped:FALSE];
 	id<MTLTexture> laplacian = [ctx.device newTextureWithDescriptor:laplacianTexDesc];
 	
 	const int size = 3;
@@ -159,7 +159,7 @@
 
 +(id<MTLTexture>)SobelFilter3x3_X:(MUComputeContext*)ctx
 {
-	MTLTextureDescriptor* sobeltxdesc = [MTLTextureDescriptor texture2DDescriptorWithPixelFormat:MTLPixelFormatR8Snorm width:3 height:3 mipmapped:FALSE];
+	MTLTextureDescriptor* sobeltxdesc = [MTLTextureDescriptor texture2DDescriptorWithPixelFormat:MTLPixelFormatR32Float width:3 height:3 mipmapped:FALSE];
 	id<MTLTexture> x_sobel = [ctx.device newTextureWithDescriptor:sobeltxdesc];
 	
 	const int size = 3;
@@ -184,7 +184,7 @@
 
 +(id<MTLTexture>)SobelFilter3x3_Y:(MUComputeContext*)ctx
 {
-	MTLTextureDescriptor* sobeltxdesc = [MTLTextureDescriptor texture2DDescriptorWithPixelFormat:MTLPixelFormatR8Snorm width:3 height:3 mipmapped:FALSE];
+	MTLTextureDescriptor* sobeltxdesc = [MTLTextureDescriptor texture2DDescriptorWithPixelFormat:MTLPixelFormatR32Float width:3 height:3 mipmapped:FALSE];
 	id<MTLTexture> y_sobel = [ctx.device newTextureWithDescriptor:sobeltxdesc];
 	
 	const int size = 3;
@@ -210,7 +210,7 @@
 
 +(id<MTLTexture>)SobelFilter5x5_X:(MUComputeContext*)ctx
 {
-	MTLTextureDescriptor* sobeltxdesc = [MTLTextureDescriptor texture2DDescriptorWithPixelFormat:MTLPixelFormatR8Snorm width:5 height:5 mipmapped:FALSE];
+	MTLTextureDescriptor* sobeltxdesc = [MTLTextureDescriptor texture2DDescriptorWithPixelFormat:MTLPixelFormatR32Float width:5 height:5 mipmapped:FALSE];
 	id<MTLTexture> x_sobel = [ctx.device newTextureWithDescriptor:sobeltxdesc];
 	
 	const int size = 5;
@@ -252,7 +252,7 @@
 
 +(id<MTLTexture>)SobelFilter5x5_Y:(MUComputeContext*)ctx
 {
-	MTLTextureDescriptor* sobeltxdesc = [MTLTextureDescriptor texture2DDescriptorWithPixelFormat:MTLPixelFormatR8Snorm width:5 height:5 mipmapped:FALSE];
+	MTLTextureDescriptor* sobeltxdesc = [MTLTextureDescriptor texture2DDescriptorWithPixelFormat:MTLPixelFormatR32Float width:5 height:5 mipmapped:FALSE];
 	id<MTLTexture> y_sobel = [ctx.device newTextureWithDescriptor:sobeltxdesc];
 	
 	const int size = 5;

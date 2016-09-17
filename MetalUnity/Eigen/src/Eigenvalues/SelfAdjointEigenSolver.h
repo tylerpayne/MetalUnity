@@ -85,7 +85,7 @@ template<typename _MatrixType> class SelfAdjointEigenSolver
 
     /** \brief Real scalar type for \p _MatrixType.
       *
-      * This is just \c Scalar if #Scalar is real (e.g., \c float or
+      * This is just \c Scalar if #Scalar is real (e.g., \c Float32 or
       * \c double), and the type of the real part of \c Scalar if #Scalar is
       * complex.
       */

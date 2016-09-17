@@ -14,7 +14,7 @@ namespace Eigen {
 
 namespace internal {
 
-//---------- float ----------
+//---------- Float32 ----------
 struct Packet2cf
 {
   EIGEN_STRONG_INLINE Packet2cf() {}
@@ -22,7 +22,7 @@ struct Packet2cf
   __m128  v;
 };
 
-template<> struct packet_traits<std::complex<float> >  : default_packet_traits
+template<> struct packet_traits<std::complex<Float32> >  : default_packet_traits
 {
   typedef Packet2cf type;
   enum {
@@ -43,7 +43,7 @@ template<> struct packet_traits<std::complex<float> >  : default_packet_traits
   };
 };
 
-template<> struct unpacket_traits<Packet2cf> { typedef std::complex<float> type; enum {size=2}; };
+template<> struct unpacket_traits<Packet2cf> { typedef std::complex<Float32> type; enum {size=2}; };
 
 template<> EIGEN_STRONG_INLINE Packet2cf padd<Packet2cf>(const Packet2cf& a, const Packet2cf& b) { return Packet2cf(_mm_add_ps(a.v,b.v)); }
 template<> EIGEN_STRONG_INLINE Packet2cf psub<Packet2cf>(const Packet2cf& a, const Packet2cf& b) { return Packet2cf(_mm_sub_ps(a.v,b.v)); }
@@ -81,10 +81,10 @@ template<> EIGEN_STRONG_INLINE Packet2cf por    <Packet2cf>(const Packet2cf& a, 
 template<> EIGEN_STRONG_INLINE Packet2cf pxor   <Packet2cf>(const Packet2cf& a, const Packet2cf& b) { return Packet2cf(_mm_xor_ps(a.v,b.v)); }
 template<> EIGEN_STRONG_INLINE Packet2cf pandnot<Packet2cf>(const Packet2cf& a, const Packet2cf& b) { return Packet2cf(_mm_andnot_ps(a.v,b.v)); }
 
-template<> EIGEN_STRONG_INLINE Packet2cf pload <Packet2cf>(const std::complex<float>* from) { EIGEN_DEBUG_ALIGNED_LOAD return Packet2cf(pload<Packet4f>(&numext::real_ref(*from))); }
-template<> EIGEN_STRONG_INLINE Packet2cf ploadu<Packet2cf>(const std::complex<float>* from) { EIGEN_DEBUG_UNALIGNED_LOAD return Packet2cf(ploadu<Packet4f>(&numext::real_ref(*from))); }
+template<> EIGEN_STRONG_INLINE Packet2cf pload <Packet2cf>(const std::complex<Float32>* from) { EIGEN_DEBUG_ALIGNED_LOAD return Packet2cf(pload<Packet4f>(&numext::real_ref(*from))); }
+template<> EIGEN_STRONG_INLINE Packet2cf ploadu<Packet2cf>(const std::complex<Float32>* from) { EIGEN_DEBUG_UNALIGNED_LOAD return Packet2cf(ploadu<Packet4f>(&numext::real_ref(*from))); }
 
-template<> EIGEN_STRONG_INLINE Packet2cf pset1<Packet2cf>(const std::complex<float>&  from)
+template<> EIGEN_STRONG_INLINE Packet2cf pset1<Packet2cf>(const std::complex<Float32>&  from)
 {
   Packet2cf res;
 #if EIGEN_GNUC_AT_MOST(4,2)
@@ -102,23 +102,23 @@ template<> EIGEN_STRONG_INLINE Packet2cf pset1<Packet2cf>(const std::complex<flo
   return Packet2cf(_mm_movelh_ps(res.v,res.v));
 }
 
-template<> EIGEN_STRONG_INLINE Packet2cf ploaddup<Packet2cf>(const std::complex<float>* from) { return pset1<Packet2cf>(*from); }
+template<> EIGEN_STRONG_INLINE Packet2cf ploaddup<Packet2cf>(const std::complex<Float32>* from) { return pset1<Packet2cf>(*from); }
 
-template<> EIGEN_STRONG_INLINE void pstore <std::complex<float> >(std::complex<float> *   to, const Packet2cf& from) { EIGEN_DEBUG_ALIGNED_STORE pstore(&numext::real_ref(*to), from.v); }
-template<> EIGEN_STRONG_INLINE void pstoreu<std::complex<float> >(std::complex<float> *   to, const Packet2cf& from) { EIGEN_DEBUG_UNALIGNED_STORE pstoreu(&numext::real_ref(*to), from.v); }
+template<> EIGEN_STRONG_INLINE void pstore <std::complex<Float32> >(std::complex<Float32> *   to, const Packet2cf& from) { EIGEN_DEBUG_ALIGNED_STORE pstore(&numext::real_ref(*to), from.v); }
+template<> EIGEN_STRONG_INLINE void pstoreu<std::complex<Float32> >(std::complex<Float32> *   to, const Packet2cf& from) { EIGEN_DEBUG_UNALIGNED_STORE pstoreu(&numext::real_ref(*to), from.v); }
 
-template<> EIGEN_STRONG_INLINE void prefetch<std::complex<float> >(const std::complex<float> *   addr) { _mm_prefetch((const char*)(addr), _MM_HINT_T0); }
+template<> EIGEN_STRONG_INLINE void prefetch<std::complex<Float32> >(const std::complex<Float32> *   addr) { _mm_prefetch((const char*)(addr), _MM_HINT_T0); }
 
-template<> EIGEN_STRONG_INLINE std::complex<float>  pfirst<Packet2cf>(const Packet2cf& a)
+template<> EIGEN_STRONG_INLINE std::complex<Float32>  pfirst<Packet2cf>(const Packet2cf& a)
 {
   #if EIGEN_GNUC_AT_MOST(4,3)
   // Workaround gcc 4.2 ICE - this is not performance wise ideal, but who cares...
   // This workaround also fix invalid code generation with gcc 4.3
-  EIGEN_ALIGN16 std::complex<float> res[2];
-  _mm_store_ps((float*)res, a.v);
+  EIGEN_ALIGN16 std::complex<Float32> res[2];
+  _mm_store_ps((Float32*)res, a.v);
   return res[0];
   #else
-  std::complex<float> res;
+  std::complex<Float32> res;
   _mm_storel_pi((__m64*)&res, a.v);
   return res;
   #endif
@@ -126,7 +126,7 @@ template<> EIGEN_STRONG_INLINE std::complex<float>  pfirst<Packet2cf>(const Pack
 
 template<> EIGEN_STRONG_INLINE Packet2cf preverse(const Packet2cf& a) { return Packet2cf(_mm_castpd_ps(preverse(_mm_castps_pd(a.v)))); }
 
-template<> EIGEN_STRONG_INLINE std::complex<float> predux<Packet2cf>(const Packet2cf& a)
+template<> EIGEN_STRONG_INLINE std::complex<Float32> predux<Packet2cf>(const Packet2cf& a)
 {
   return pfirst(Packet2cf(_mm_add_ps(a.v, _mm_movehl_ps(a.v,a.v))));
 }
@@ -136,7 +136,7 @@ template<> EIGEN_STRONG_INLINE Packet2cf preduxp<Packet2cf>(const Packet2cf* vec
   return Packet2cf(_mm_add_ps(_mm_movelh_ps(vecs[0].v,vecs[1].v), _mm_movehl_ps(vecs[1].v,vecs[0].v)));
 }
 
-template<> EIGEN_STRONG_INLINE std::complex<float> predux_mul<Packet2cf>(const Packet2cf& a)
+template<> EIGEN_STRONG_INLINE std::complex<Float32> predux_mul<Packet2cf>(const Packet2cf& a)
 {
   return pfirst(pmul(a, Packet2cf(_mm_movehl_ps(a.v,a.v))));
 }

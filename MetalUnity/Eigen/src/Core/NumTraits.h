@@ -26,7 +26,7 @@ namespace Eigen {
   *     then \a Real is just a typedef to \a T. If \a T is \c std::complex<U> then \a Real
   *     is a typedef to \a U.
   * \li A typedef \a NonInteger, giving the type that should be used for operations producing non-integral values,
-  *     such as quotients, square roots, etc. If \a T is a floating-point type, then this typedef just gives
+  *     such as quotients, square roots, etc. If \a T is a Float32ing-point type, then this typedef just gives
   *     \a T again. Note however that many Eigen functions such as internal::sqrt simply refuse to
   *     take integers. Outside of a few cases, Eigen doesn't do automatic type promotion. Thus, this typedef is
   *     only intended as a helper for code that needs to explicitly promote types.
@@ -63,7 +63,7 @@ template<typename T> struct GenericNumTraits
   typedef T Real;
   typedef typename internal::conditional<
                      IsInteger,
-                     typename internal::conditional<sizeof(T)<=2, float, double>::type,
+                     typename internal::conditional<sizeof(T)<=2, Float32, double>::type,
                      T
                    >::type NonInteger;
   typedef T Nested;
@@ -71,7 +71,7 @@ template<typename T> struct GenericNumTraits
   static inline Real epsilon() { return std::numeric_limits<T>::epsilon(); }
   static inline Real dummy_precision()
   {
-    // make sure to override this for floating-point types
+    // make sure to override this for Float32ing-point types
     return Real(0);
   }
   static inline T highest() { return (std::numeric_limits<T>::max)(); }
@@ -88,10 +88,10 @@ template<typename T> struct GenericNumTraits
 template<typename T> struct NumTraits : GenericNumTraits<T>
 {};
 
-template<> struct NumTraits<float>
-  : GenericNumTraits<float>
+template<> struct NumTraits<Float32>
+  : GenericNumTraits<Float32>
 {
-  static inline float dummy_precision() { return 1e-5f; }
+  static inline Float32 dummy_precision() { return 1e-5f; }
 };
 
 template<> struct NumTraits<double> : GenericNumTraits<double>

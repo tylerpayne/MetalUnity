@@ -67,10 +67,10 @@ struct general_matrix_matrix_triangular_product<Index,Scalar,LhsStorageOrder,Con
 
 EIGEN_MKL_RANKUPDATE_SPECIALIZE(double)
 //EIGEN_MKL_RANKUPDATE_SPECIALIZE(dcomplex)
-EIGEN_MKL_RANKUPDATE_SPECIALIZE(float)
+EIGEN_MKL_RANKUPDATE_SPECIALIZE(Float32)
 //EIGEN_MKL_RANKUPDATE_SPECIALIZE(scomplex)
 
-// SYRK for float/double
+// SYRK for Float32/double
 #define EIGEN_MKL_RANKUPDATE_R(EIGTYPE, MKLTYPE, MKLFUNC) \
 template <typename Index, int AStorageOrder, bool ConjugateA, int  UpLo> \
 struct general_matrix_matrix_rankupdate<Index,EIGTYPE,AStorageOrder,ConjugateA,ColMajor,UpLo> { \
@@ -133,7 +133,7 @@ struct general_matrix_matrix_rankupdate<Index,EIGTYPE,AStorageOrder,ConjugateA,C
 
 
 EIGEN_MKL_RANKUPDATE_R(double, double, dsyrk)
-EIGEN_MKL_RANKUPDATE_R(float,  float,  ssyrk)
+EIGEN_MKL_RANKUPDATE_R(Float32,  Float32,  ssyrk)
 
 //EIGEN_MKL_RANKUPDATE_C(dcomplex, MKL_Complex16, double, zherk)
 //EIGEN_MKL_RANKUPDATE_C(scomplex, MKL_Complex8,  double, cherk)

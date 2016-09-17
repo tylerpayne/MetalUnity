@@ -85,7 +85,7 @@
 	return newTexture;
 }
 
--(id<MTLTexture>)_generateGaussianFilter:(int)rm  AtIndex:(char*)idx Std:(float)sigma Radius:(int)width
+-(id<MTLTexture>)_generateGaussianFilter:(int)rm  AtIndex:(char*)idx Std:(Float32)sigma Radius:(int)width
 {
 	MUResourceManager* resourceManager = ((MUResourceManager*)[self.rms objectAtIndex:rm]);
 	id<MTLTexture> newTexture = [Filters GaussianFilterStd:sigma Width:width Context:self.context];
@@ -93,7 +93,7 @@
 	return newTexture;
 }
 
--(id<MTLTexture>)_generateLoGFilter:(int)rm  AtIndex:(char*)idx Std:(float)sigma Radius:(int)width
+-(id<MTLTexture>)_generateLoGFilter:(int)rm  AtIndex:(char*)idx Std:(Float32)sigma Radius:(int)width
 {
 	MUResourceManager* resourceManager = ((MUResourceManager*)[self.rms objectAtIndex:rm]);
 	id<MTLTexture> newTexture = [Filters LaplacianOfGaussian:sigma Width:width Context:self.context];
@@ -109,7 +109,7 @@
 	return newTexture;
 }
 
--(id<MTLTexture>)_generateDoGFilter:(int)rm  AtIndex:(char*)idx Std:(float)sigma Radius:(int)width
+-(id<MTLTexture>)_generateDoGFilter:(int)rm  AtIndex:(char*)idx Std:(Float32)sigma Radius:(int)width
 {
 	MUResourceManager* resourceManager = ((MUResourceManager*)[self.rms objectAtIndex:rm]);
 	id<MTLTexture> newTexture = [Filters DifferenceOfGaussian:sigma Width:width Context:self.context];
@@ -120,18 +120,18 @@
 -(id<MTLTexture>)_generateEmptyTexture:(int)rm AtIndex:(char*)idx Width:(int)w Height:(int)h
 {
 	MUResourceManager* resourceManager = ((MUResourceManager*)[self.rms objectAtIndex:rm]);
-	MTLTextureDescriptor *txdesc = [MTLTextureDescriptor texture2DDescriptorWithPixelFormat:MTLPixelFormatRGBA8Snorm width:w height:h mipmapped:FALSE];
+	MTLTextureDescriptor *txdesc = [MTLTextureDescriptor texture2DDescriptorWithPixelFormat:MTLPixelFormatR32Float width:w height:h mipmapped:FALSE];
 	id<MTLTexture> newTexture = [self.context.device newTextureWithDescriptor:txdesc];
 	[resourceManager attachTexture:newTexture AtIndex:[NSString stringWithUTF8String:idx]];
 	return newTexture;
 }
 
--(void)_fillTextureWithFloat:(id<MTLTexture>)tex Region:(int*)replaceRegion Bytes:(float*)data BytesPerRow:(int)bpr
+-(void)_fillTextureWithFloat:(id<MTLTexture>)tex Region:(int*)replaceRegion Bytes:(Float32*)data BytesPerRow:(int)bpr
 {
 	[tex replaceRegion:MTLRegionMake2D(replaceRegion[0], replaceRegion[1], replaceRegion[2], replaceRegion[3]) mipmapLevel:0 withBytes:data bytesPerRow:bpr];
 }
 
--(void)_attachFloatAtIndex:(int)rm Val:(float)f AtIndex:(char*)idx
+-(void)_attachFloatAtIndex:(int)rm Val:(Float32)f AtIndex:(char*)idx
 {
 	MUResourceManager* resourceManager = ((MUResourceManager*)[self.rms objectAtIndex:rm]);
 	[resourceManager.resources setObject:[NSNumber numberWithFloat:f] forKey:[NSString stringWithUTF8String:idx]];
@@ -152,9 +152,9 @@
 	return ((MUTexture*)[[resourceManager resources] objectForKey:@"1"]).tex;
 }
 
--(float*)_getPixelValue:(id<MTLTexture>)tex Coordinates:(int*)coord BytesPerRow:(int)bpr
+-(Float32*)_getPixelValue:(id<MTLTexture>)tex Coordinates:(int*)coord BytesPerRow:(int)bpr
 {
-	float* vals = (float*)malloc(sizeof(float)*2);
+	Float32* vals = (Float32*)malloc(sizeof(Float32)*2);
 	[tex getBytes:vals bytesPerRow:bpr fromRegion:MTLRegionMake2D(coord[0], coord[1], 1, 1) mipmapLevel:0];
 	return vals;
 }
@@ -232,7 +232,7 @@ extern "C"
 		return [MU _generate5x5SobelYOperator:rm AtIndex:idx];
 	}
 	
-	id<MTLTexture> MUGenerateGaussianFilter(int rm, char* idx, float sigma, int width)
+	id<MTLTexture> MUGenerateGaussianFilter(int rm, char* idx, Float32 sigma, int width)
 	{
 		return [MU _generateGaussianFilter:rm AtIndex:idx Std:sigma Radius:width];
 	}
@@ -242,12 +242,12 @@ extern "C"
 		return [MU _generate3x3LaplacianOperator:rm AtIndex:idx];
 	}
 	
-	id<MTLTexture> MUGenerateLoGFilter(int rm, char* idx, float sigma, int width)
+	id<MTLTexture> MUGenerateLoGFilter(int rm, char* idx, Float32 sigma, int width)
 	{
 		return [MU _generateLoGFilter:rm AtIndex:idx Std:sigma Radius:width];
 	}
 	
-	id<MTLTexture> MUGenerateDoGFilter(int rm, char* idx, float sigma, int width)
+	id<MTLTexture> MUGenerateDoGFilter(int rm, char* idx, Float32 sigma, int width)
 	{
 		return [MU _generateDoGFilter:rm AtIndex:idx Std:sigma Radius:width];
 	}
@@ -257,12 +257,12 @@ extern "C"
 		return [MU _generateEmptyTexture:rm AtIndex:idx Width:w Height:h];
 	}
 	
-	void MUFillTextureWithFloat(id<MTLTexture> tex, int* replaceRegion, float* data, int bpr)
+	void MUFillTextureWithFloat(id<MTLTexture> tex, int* replaceRegion, Float32* data, int bpr)
 	{
-		[MU _fillTextureWithFloat:tex Region:replaceRegion Bytes:data BytesPerRow:sizeof(float)*bpr];
+		[MU _fillTextureWithFloat:tex Region:replaceRegion Bytes:data BytesPerRow:sizeof(Float32)*bpr];
 	}
 	
-	void MUAttachFloatAtIndex(int rm, float* f, char* idx)
+	void MUAttachFloatAtIndex(int rm, Float32* f, char* idx)
 	{
 		[MU _attachFloatAtIndex:rm Val:f[0] AtIndex:idx];
 	}
@@ -282,7 +282,7 @@ extern "C"
 		return [MU _getOutputTexture:rm MipMapLevelCount:mipmaplevel];
 	}
 	
-	float* MUGetPixelValue(id<MTLTexture> tex, int* coord, int bpr)
+	Float32* MUGetPixelValue(id<MTLTexture> tex, int* coord, int bpr)
 	{
 		return [MU _getPixelValue:tex Coordinates:coord BytesPerRow:bpr];
 	}

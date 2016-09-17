@@ -22,7 +22,7 @@ namespace Eigen {
 
 // These helpers are required since it allows to use mixed types as parameters
 // for the Umeyama. The problem with mixed parameters is that the return type
-// cannot trivially be deduced when float and double types are mixed.
+// cannot trivially be deduced when Float32 and double types are mixed.
 namespace internal {
 
 // Compile time return type deduction for different MatrixBase types.
@@ -76,7 +76,7 @@ struct umeyama_transform_matrix_type
 * matrix computation which has an asymptotic lower bound of \f$O(dm)\f$ when 
 * the input point sets have dimension \f$d \times m\f$.
 *
-* Currently the method is working only for floating point matrices.
+* Currently the method is working only for Float32ing point matrices.
 *
 * \todo Should the return type of umeyama() become a Transform?
 *

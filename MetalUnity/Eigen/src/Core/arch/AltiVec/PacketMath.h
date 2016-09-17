@@ -27,7 +27,7 @@ namespace internal {
 #define EIGEN_ARCH_DEFAULT_NUMBER_OF_REGISTERS 16
 #endif
 
-typedef __vector float          Packet4f;
+typedef __vector Float32          Packet4f;
 typedef __vector int            Packet4i;
 typedef __vector unsigned int   Packet4ui;
 typedef __vector __bool int     Packet4bi;
@@ -59,7 +59,7 @@ typedef __vector unsigned char  Packet16uc;
 static Packet4f p4f_COUNTDOWN = { 3.0, 2.0, 1.0, 0.0 };
 static Packet4i p4i_COUNTDOWN = { 3, 2, 1, 0 };
 static Packet16uc p16uc_REVERSE = {12,13,14,15, 8,9,10,11, 4,5,6,7, 0,1,2,3};
-static Packet16uc p16uc_FORWARD = vec_lvsl(0, (float*)0);
+static Packet16uc p16uc_FORWARD = vec_lvsl(0, (Float32*)0);
 static Packet16uc p16uc_DUPLICATE = {0,1,2,3, 0,1,2,3, 4,5,6,7, 4,5,6,7};
 
 static _EIGEN_DECLARE_CONST_FAST_Packet4f(ZERO, 0);
@@ -70,7 +70,7 @@ static _EIGEN_DECLARE_CONST_FAST_Packet4i(MINUS1,-1);
 static Packet4f p4f_ONE = vec_ctf(p4i_ONE, 0);
 static Packet4f p4f_ZERO_ = (Packet4f) vec_sl((Packet4ui)p4i_MINUS1, (Packet4ui)p4i_MINUS1);
 
-template<> struct packet_traits<float>  : default_packet_traits
+template<> struct packet_traits<Float32>  : default_packet_traits
 {
   typedef Packet4f type;
   enum {
@@ -97,14 +97,14 @@ template<> struct packet_traits<int>    : default_packet_traits
   };
 };
 
-template<> struct unpacket_traits<Packet4f> { typedef float  type; enum {size=4}; };
+template<> struct unpacket_traits<Packet4f> { typedef Float32  type; enum {size=4}; };
 template<> struct unpacket_traits<Packet4i> { typedef int    type; enum {size=4}; };
 /*
 inline std::ostream & operator <<(std::ostream & s, const Packet4f & v)
 {
   union {
     Packet4f   v;
-    float n[4];
+    Float32 n[4];
   } vt;
   vt.v = v;
   s << vt.n[0] << ", " << vt.n[1] << ", " << vt.n[2] << ", " << vt.n[3];
@@ -144,9 +144,9 @@ inline std::ostream & operator <<(std::ostream & s, const Packetbi & v)
   return s;
 }
 */
-template<> EIGEN_STRONG_INLINE Packet4f pset1<Packet4f>(const float&  from) {
+template<> EIGEN_STRONG_INLINE Packet4f pset1<Packet4f>(const Float32&  from) {
   // Taken from http://developer.apple.com/hardwaredrivers/ve/alignment.html
-  float EIGEN_ALIGN16 af[4];
+  Float32 EIGEN_ALIGN16 af[4];
   af[0] = from;
   Packet4f vc = vec_ld(0, af);
   vc = vec_splat(vc, 0);
@@ -161,7 +161,7 @@ template<> EIGEN_STRONG_INLINE Packet4i pset1<Packet4i>(const int&    from)   {
   return vc;
 }
 
-template<> EIGEN_STRONG_INLINE Packet4f plset<float>(const float& a) { return vec_add(pset1<Packet4f>(a), p4f_COUNTDOWN); }
+template<> EIGEN_STRONG_INLINE Packet4f plset<Float32>(const Float32& a) { return vec_add(pset1<Packet4f>(a), p4f_COUNTDOWN); }
 template<> EIGEN_STRONG_INLINE Packet4i plset<int>(const int& a)     { return vec_add(pset1<Packet4i>(a), p4i_COUNTDOWN); }
 
 template<> EIGEN_STRONG_INLINE Packet4f padd<Packet4f>(const Packet4f& a, const Packet4f& b) { return vec_add(a,b); }
@@ -243,7 +243,7 @@ template<> EIGEN_STRONG_INLINE Packet4i pmin<Packet4i>(const Packet4i& a, const 
 template<> EIGEN_STRONG_INLINE Packet4f pmax<Packet4f>(const Packet4f& a, const Packet4f& b) { return vec_max(a, b); }
 template<> EIGEN_STRONG_INLINE Packet4i pmax<Packet4i>(const Packet4i& a, const Packet4i& b) { return vec_max(a, b); }
 
-// Logical Operations are not supported for float, so we have to reinterpret casts using NEON intrinsics
+// Logical Operations are not supported for Float32, so we have to reinterpret casts using NEON intrinsics
 template<> EIGEN_STRONG_INLINE Packet4f pand<Packet4f>(const Packet4f& a, const Packet4f& b) { return vec_and(a, b); }
 template<> EIGEN_STRONG_INLINE Packet4i pand<Packet4i>(const Packet4i& a, const Packet4i& b) { return vec_and(a, b); }
 
@@ -256,10 +256,10 @@ template<> EIGEN_STRONG_INLINE Packet4i pxor<Packet4i>(const Packet4i& a, const 
 template<> EIGEN_STRONG_INLINE Packet4f pandnot<Packet4f>(const Packet4f& a, const Packet4f& b) { return vec_and(a, vec_nor(b, b)); }
 template<> EIGEN_STRONG_INLINE Packet4i pandnot<Packet4i>(const Packet4i& a, const Packet4i& b) { return vec_and(a, vec_nor(b, b)); }
 
-template<> EIGEN_STRONG_INLINE Packet4f pload<Packet4f>(const float* from) { EIGEN_DEBUG_ALIGNED_LOAD return vec_ld(0, from); }
+template<> EIGEN_STRONG_INLINE Packet4f pload<Packet4f>(const Float32* from) { EIGEN_DEBUG_ALIGNED_LOAD return vec_ld(0, from); }
 template<> EIGEN_STRONG_INLINE Packet4i pload<Packet4i>(const int*     from) { EIGEN_DEBUG_ALIGNED_LOAD return vec_ld(0, from); }
 
-template<> EIGEN_STRONG_INLINE Packet4f ploadu<Packet4f>(const float* from)
+template<> EIGEN_STRONG_INLINE Packet4f ploadu<Packet4f>(const Float32* from)
 {
   EIGEN_DEBUG_ALIGNED_LOAD
   // Taken from http://developer.apple.com/hardwaredrivers/ve/alignment.html
@@ -283,7 +283,7 @@ template<> EIGEN_STRONG_INLINE Packet4i ploadu<Packet4i>(const int* from)
   return (Packet4i) vec_perm(MSQ, LSQ, mask);    // align the data
 }
 
-template<> EIGEN_STRONG_INLINE Packet4f ploaddup<Packet4f>(const float*   from)
+template<> EIGEN_STRONG_INLINE Packet4f ploaddup<Packet4f>(const Float32*   from)
 {
   Packet4f p;
   if((ptrdiff_t(&from) % 16) == 0)  p = pload<Packet4f>(from);
@@ -298,10 +298,10 @@ template<> EIGEN_STRONG_INLINE Packet4i ploaddup<Packet4i>(const int*     from)
   return vec_perm(p, p, p16uc_DUPLICATE);
 }
 
-template<> EIGEN_STRONG_INLINE void pstore<float>(float*   to, const Packet4f& from) { EIGEN_DEBUG_ALIGNED_STORE vec_st(from, 0, to); }
+template<> EIGEN_STRONG_INLINE void pstore<Float32>(Float32*   to, const Packet4f& from) { EIGEN_DEBUG_ALIGNED_STORE vec_st(from, 0, to); }
 template<> EIGEN_STRONG_INLINE void pstore<int>(int*       to, const Packet4i& from) { EIGEN_DEBUG_ALIGNED_STORE vec_st(from, 0, to); }
 
-template<> EIGEN_STRONG_INLINE void pstoreu<float>(float*  to, const Packet4f& from)
+template<> EIGEN_STRONG_INLINE void pstoreu<Float32>(Float32*  to, const Packet4f& from)
 {
   EIGEN_DEBUG_UNALIGNED_STORE
   // Taken from http://developer.apple.com/hardwaredrivers/ve/alignment.html
@@ -338,10 +338,10 @@ template<> EIGEN_STRONG_INLINE void pstoreu<int>(int*      to, const Packet4i& f
   vec_st( MSQ, 0, (unsigned char *)to );                    // Store the MSQ part
 }
 
-template<> EIGEN_STRONG_INLINE void prefetch<float>(const float* addr) { vec_dstt(addr, DST_CTRL(2,2,32), DST_CHAN); }
+template<> EIGEN_STRONG_INLINE void prefetch<Float32>(const Float32* addr) { vec_dstt(addr, DST_CTRL(2,2,32), DST_CHAN); }
 template<> EIGEN_STRONG_INLINE void prefetch<int>(const int*     addr) { vec_dstt(addr, DST_CTRL(2,2,32), DST_CHAN); }
 
-template<> EIGEN_STRONG_INLINE float  pfirst<Packet4f>(const Packet4f& a) { float EIGEN_ALIGN16 x[4]; vec_st(a, 0, x); return x[0]; }
+template<> EIGEN_STRONG_INLINE Float32  pfirst<Packet4f>(const Packet4f& a) { Float32 EIGEN_ALIGN16 x[4]; vec_st(a, 0, x); return x[0]; }
 template<> EIGEN_STRONG_INLINE int    pfirst<Packet4i>(const Packet4i& a) { int   EIGEN_ALIGN16 x[4]; vec_st(a, 0, x); return x[0]; }
 
 template<> EIGEN_STRONG_INLINE Packet4f preverse(const Packet4f& a) { return (Packet4f)vec_perm((Packet16uc)a,(Packet16uc)a, p16uc_REVERSE); }
@@ -350,7 +350,7 @@ template<> EIGEN_STRONG_INLINE Packet4i preverse(const Packet4i& a) { return (Pa
 template<> EIGEN_STRONG_INLINE Packet4f pabs(const Packet4f& a) { return vec_abs(a); }
 template<> EIGEN_STRONG_INLINE Packet4i pabs(const Packet4i& a) { return vec_abs(a); }
 
-template<> EIGEN_STRONG_INLINE float predux<Packet4f>(const Packet4f& a)
+template<> EIGEN_STRONG_INLINE Float32 predux<Packet4f>(const Packet4f& a)
 {
   Packet4f b, sum;
   b   = (Packet4f) vec_sld(a, a, 8);
@@ -365,7 +365,7 @@ template<> EIGEN_STRONG_INLINE Packet4f preduxp<Packet4f>(const Packet4f* vecs)
   Packet4f v[4], sum[4];
 
   // It's easier and faster to transpose then add as columns
-  // Check: http://www.freevec.org/function/matrix_4x4_transpose_floats for explanation
+  // Check: http://www.freevec.org/function/matrix_4x4_transpose_Float32s for explanation
   // Do the transpose, first set of moves
   v[0] = vec_mergeh(vecs[0], vecs[2]);
   v[1] = vec_mergel(vecs[0], vecs[2]);
@@ -401,7 +401,7 @@ template<> EIGEN_STRONG_INLINE Packet4i preduxp<Packet4i>(const Packet4i* vecs)
   Packet4i v[4], sum[4];
 
   // It's easier and faster to transpose then add as columns
-  // Check: http://www.freevec.org/function/matrix_4x4_transpose_floats for explanation
+  // Check: http://www.freevec.org/function/matrix_4x4_transpose_Float32s for explanation
   // Do the transpose, first set of moves
   v[0] = vec_mergeh(vecs[0], vecs[2]);
   v[1] = vec_mergel(vecs[0], vecs[2]);
@@ -426,7 +426,7 @@ template<> EIGEN_STRONG_INLINE Packet4i preduxp<Packet4i>(const Packet4i* vecs)
 
 // Other reduction functions:
 // mul
-template<> EIGEN_STRONG_INLINE float predux_mul<Packet4f>(const Packet4f& a)
+template<> EIGEN_STRONG_INLINE Float32 predux_mul<Packet4f>(const Packet4f& a)
 {
   Packet4f prod;
   prod = pmul(a, (Packet4f)vec_sld(a, a, 8));
@@ -441,7 +441,7 @@ template<> EIGEN_STRONG_INLINE int predux_mul<Packet4i>(const Packet4i& a)
 }
 
 // min
-template<> EIGEN_STRONG_INLINE float predux_min<Packet4f>(const Packet4f& a)
+template<> EIGEN_STRONG_INLINE Float32 predux_min<Packet4f>(const Packet4f& a)
 {
   Packet4f b, res;
   b = vec_min(a, vec_sld(a, a, 8));
@@ -458,7 +458,7 @@ template<> EIGEN_STRONG_INLINE int predux_min<Packet4i>(const Packet4i& a)
 }
 
 // max
-template<> EIGEN_STRONG_INLINE float predux_max<Packet4f>(const Packet4f& a)
+template<> EIGEN_STRONG_INLINE Float32 predux_max<Packet4f>(const Packet4f& a)
 {
   Packet4f b, res;
   b = vec_max(a, vec_sld(a, a, 8));

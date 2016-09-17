@@ -40,8 +40,8 @@ namespace internal {
 /**********************************************************************
 * This file implements general matrix-vector multiplication using BLAS
 * gemv function via partial specialization of
-* general_matrix_vector_product::run(..) method for float, double,
-* std::complex<float> and std::complex<double> types
+* general_matrix_vector_product::run(..) method for Float32, double,
+* std::complex<Float32> and std::complex<double> types
 **********************************************************************/
 
 // gemv specialization
@@ -82,7 +82,7 @@ static void run( \
 }; \
 
 EIGEN_MKL_GEMV_SPECIALIZE(double)
-EIGEN_MKL_GEMV_SPECIALIZE(float)
+EIGEN_MKL_GEMV_SPECIALIZE(Float32)
 EIGEN_MKL_GEMV_SPECIALIZE(dcomplex)
 EIGEN_MKL_GEMV_SPECIALIZE(scomplex)
 
@@ -120,7 +120,7 @@ static void run( \
 };
 
 EIGEN_MKL_GEMV_SPECIALIZATION(double,   double,        d)
-EIGEN_MKL_GEMV_SPECIALIZATION(float,    float,         s)
+EIGEN_MKL_GEMV_SPECIALIZATION(Float32,    Float32,         s)
 EIGEN_MKL_GEMV_SPECIALIZATION(dcomplex, MKL_Complex16, z)
 EIGEN_MKL_GEMV_SPECIALIZATION(scomplex, MKL_Complex8,  c)
 

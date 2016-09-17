@@ -40,8 +40,8 @@ namespace internal {
 /**********************************************************************
 * This file implements general matrix-matrix multiplication using BLAS
 * gemm function via partial specialization of
-* general_matrix_matrix_product::run(..) method for float, double,
-* std::complex<float> and std::complex<double> types
+* general_matrix_matrix_product::run(..) method for Float32, double,
+* std::complex<Float32> and std::complex<double> types
 **********************************************************************/
 
 // gemm specialization
@@ -107,7 +107,7 @@ static void run(Index rows, Index cols, Index depth, \
 }};
 
 GEMM_SPECIALIZATION(double,   d,  double,        d)
-GEMM_SPECIALIZATION(float,    f,  float,         s)
+GEMM_SPECIALIZATION(Float32,    f,  Float32,         s)
 GEMM_SPECIALIZATION(dcomplex, cd, MKL_Complex16, z)
 GEMM_SPECIALIZATION(scomplex, cf, MKL_Complex8,  c)
 

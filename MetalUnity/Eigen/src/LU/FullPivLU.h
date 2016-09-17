@@ -565,7 +565,7 @@ struct kernel_retval<FullPivLU<_MatrixType> >
     if(dimker == 0)
     {
       // The Kernel is just {0}, so it doesn't have a basis properly speaking, but let's
-      // avoid crashing/asserting as that depends on floating point calculations. Let's
+      // avoid crashing/asserting as that depends on Float32ing point calculations. Let's
       // just return a single column vector filled with zeros.
       dst.setZero();
       return;
@@ -650,7 +650,7 @@ struct image_retval<FullPivLU<_MatrixType> >
     if(rank() == 0)
     {
       // The Image is just {0}, so it doesn't have a basis properly speaking, but let's
-      // avoid crashing/asserting as that depends on floating point calculations. Let's
+      // avoid crashing/asserting as that depends on Float32ing point calculations. Let's
       // just return a single column vector filled with zeros.
       dst.setZero();
       return;

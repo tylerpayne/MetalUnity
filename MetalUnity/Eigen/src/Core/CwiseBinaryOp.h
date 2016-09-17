@@ -93,7 +93,7 @@ struct traits<CwiseBinaryOp<BinaryOp, Lhs, Rhs> >
 // currently they take only one typename Scalar template parameter.
 // It is tempting to always allow mixing different types but remember that this is often impossible in the vectorized paths.
 // So allowing mixing different types gives very unexpected errors when enabling vectorization, when the user tries to
-// add together a float matrix and a double matrix.
+// add together a Float32 matrix and a double matrix.
 #define EIGEN_CHECK_BINARY_COMPATIBILIY(BINOP,LHS,RHS) \
   EIGEN_STATIC_ASSERT((internal::functor_is_product_like<BINOP>::ret \
                         ? int(internal::scalar_product_traits<LHS, RHS>::Defined) \

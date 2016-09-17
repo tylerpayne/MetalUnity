@@ -336,8 +336,8 @@ inline void palign(PacketType& first, const PacketType& second)
 * Fast complex products (GCC generates a function call which is very slow)
 ***************************************************************************/
 
-template<> inline std::complex<float> pmul(const std::complex<float>& a, const std::complex<float>& b)
-{ return std::complex<float>(real(a)*real(b) - imag(a)*imag(b), imag(a)*real(b) + real(a)*imag(b)); }
+template<> inline std::complex<Float32> pmul(const std::complex<Float32>& a, const std::complex<Float32>& b)
+{ return std::complex<Float32>(real(a)*real(b) - imag(a)*imag(b), imag(a)*real(b) + real(a)*imag(b)); }
 
 template<> inline std::complex<double> pmul(const std::complex<double>& a, const std::complex<double>& b)
 { return std::complex<double>(real(a)*real(b) - imag(a)*imag(b), imag(a)*real(b) + real(a)*imag(b)); }

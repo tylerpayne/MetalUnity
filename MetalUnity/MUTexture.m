@@ -33,7 +33,7 @@
 
 -(instancetype)initWithContext:(MUComputeContext*)context Width:(NSUInteger)w Height:(NSUInteger)h Depth:(NSUInteger)d
 {
-	MTLTextureDescriptor *txdesc = [MTLTextureDescriptor texture2DDescriptorWithPixelFormat:MTLPixelFormatRGBA8Snorm width:w height:h mipmapped:FALSE];
+	MTLTextureDescriptor *txdesc = [MTLTextureDescriptor texture2DDescriptorWithPixelFormat:MTLPixelFormatR32Float width:w height:h mipmapped:FALSE];
 	self.tex = [self.context.device newTextureWithDescriptor:txdesc];
 	self.size = MTLSizeMake(w, h, d);
 	return self;

@@ -200,7 +200,7 @@ public:
   * \li \b stable spherical interpolation
   *
   * The following two typedefs are provided for convenience:
-  * \li \c Quaternionf for \c float
+  * \li \c Quaternionf for \c Float32
   * \li \c Quaterniond for \c double
   *
   * \warning Operations interpreting the quaternion as rotation have undefined behavior if the quaternion is not normalized.
@@ -292,7 +292,7 @@ protected:
 
 /** \ingroup Geometry_Module
   * single precision quaternion type */
-typedef Quaternion<float> Quaternionf;
+typedef Quaternion<Float32> Quaternionf;
 /** \ingroup Geometry_Module
   * double precision quaternion type */
 typedef Quaternion<double> Quaterniond;
@@ -398,13 +398,13 @@ class Map<Quaternion<_Scalar>, _Options >
 
 /** \ingroup Geometry_Module
   * Map an unaligned array of single precision scalars as a quaternion */
-typedef Map<Quaternion<float>, 0>         QuaternionMapf;
+typedef Map<Quaternion<Float32>, 0>         QuaternionMapf;
 /** \ingroup Geometry_Module
   * Map an unaligned array of double precision scalars as a quaternion */
 typedef Map<Quaternion<double>, 0>        QuaternionMapd;
 /** \ingroup Geometry_Module
   * Map a 16-byte aligned array of single precision scalars as a quaternion */
-typedef Map<Quaternion<float>, Aligned>   QuaternionMapAlignedf;
+typedef Map<Quaternion<Float32>, Aligned>   QuaternionMapAlignedf;
 /** \ingroup Geometry_Module
   * Map a 16-byte aligned array of double precision scalars as a quaternion */
 typedef Map<Quaternion<double>, Aligned>  QuaternionMapAlignedd;

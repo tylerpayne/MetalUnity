@@ -21,7 +21,7 @@ namespace Eigen {
                                 FLOATTYPE *, FLOATTYPE *, FLOATTYPE *, FLOATTYPE *,                       \
                                 PREFIX##mem_usage_t *, SuperLUStat_t *, int *);                           \
     }                                                                                                     \
-    inline float SuperLU_gssvx(superlu_options_t *options, SuperMatrix *A,                                \
+    inline Float32 SuperLU_gssvx(superlu_options_t *options, SuperMatrix *A,                                \
          int *perm_c, int *perm_r, int *etree, char *equed,                                               \
          FLOATTYPE *R, FLOATTYPE *C, SuperMatrix *L,                                                      \
          SuperMatrix *U, void *work, int lwork,                                                           \
@@ -36,8 +36,8 @@ namespace Eigen {
     return mem_usage.for_lu; /* bytes used by the factor storage */                                       \
   }
 
-DECL_GSSVX(s,float,float)
-DECL_GSSVX(c,float,std::complex<float>)
+DECL_GSSVX(s,Float32,Float32)
+DECL_GSSVX(c,Float32,std::complex<Float32>)
 DECL_GSSVX(d,double,double)
 DECL_GSSVX(z,double,std::complex<double>)
 
@@ -55,7 +55,7 @@ DECL_GSSVX(z,double,std::complex<double>)
                          void *, int, SuperMatrix *, SuperMatrix *, FLOATTYPE *, FLOATTYPE *,   \
                          PREFIX##mem_usage_t *, SuperLUStat_t *, int *);                        \
     }                                                                                           \
-    inline float SuperLU_gsisx(superlu_options_t *options, SuperMatrix *A,                      \
+    inline Float32 SuperLU_gsisx(superlu_options_t *options, SuperMatrix *A,                      \
          int *perm_c, int *perm_r, int *etree, char *equed,                                     \
          FLOATTYPE *R, FLOATTYPE *C, SuperMatrix *L,                                            \
          SuperMatrix *U, void *work, int lwork,                                                 \
@@ -70,8 +70,8 @@ DECL_GSSVX(z,double,std::complex<double>)
     return mem_usage.for_lu; /* bytes used by the factor storage */                             \
   }
 
-DECL_GSISX(s,float,float)
-DECL_GSISX(c,float,std::complex<float>)
+DECL_GSISX(s,Float32,Float32)
+DECL_GSISX(c,Float32,std::complex<Float32>)
 DECL_GSISX(d,double,double)
 DECL_GSISX(z,double,std::complex<double>)
 
@@ -132,11 +132,11 @@ struct SluMatrix : SuperMatrix
   template<typename Scalar>
   void setScalarType()
   {
-    if (internal::is_same<Scalar,float>::value)
+    if (internal::is_same<Scalar,Float32>::value)
       Dtype = SLU_S;
     else if (internal::is_same<Scalar,double>::value)
       Dtype = SLU_D;
-    else if (internal::is_same<Scalar,std::complex<float> >::value)
+    else if (internal::is_same<Scalar,std::complex<Float32> >::value)
       Dtype = SLU_C;
     else if (internal::is_same<Scalar,std::complex<double> >::value)
       Dtype = SLU_Z;

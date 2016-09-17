@@ -40,8 +40,8 @@ template<typename PlainObjectType, int Options = 0,
   * \endcode
   *
   * In the in-out case, the input argument must satisfies the constraints of the actual Ref<> type, otherwise a compilation issue will be triggered.
-  * By default, a Ref<VectorXf> can reference any dense vector expression of float having a contiguous memory layout.
-  * Likewise, a Ref<MatrixXf> can reference any column major dense matrix expression of float whose column's elements are contiguously stored with
+  * By default, a Ref<VectorXf> can reference any dense vector expression of Float32 having a contiguous memory layout.
+  * Likewise, a Ref<MatrixXf> can reference any column major dense matrix expression of Float32 whose column's elements are contiguously stored with
   * the possibility to have a constant space inbetween each column, i.e.: the inner stride mmust be equal to 1, but the outer-stride (or leading dimension),
   * can be greater than the number of rows.
   *

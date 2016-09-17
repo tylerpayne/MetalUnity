@@ -74,7 +74,7 @@ struct partial_lu_impl<EIGTYPE, StorageOrder, lapack_int> \
 };
 
 EIGEN_MKL_LU_PARTPIV(double, double, d)
-EIGEN_MKL_LU_PARTPIV(float, float, s)
+EIGEN_MKL_LU_PARTPIV(Float32, Float32, s)
 EIGEN_MKL_LU_PARTPIV(dcomplex, MKL_Complex16, z)
 EIGEN_MKL_LU_PARTPIV(scomplex, MKL_Complex8, c)
 

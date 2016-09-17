@@ -78,14 +78,14 @@ SelfAdjointEigenSolver<Matrix<EIGTYPE, Dynamic, Dynamic, EIGCOLROW> >::compute(c
 
 
 EIGEN_MKL_EIG_SELFADJ(double,   double,        double, dsyev, ColMajor, LAPACK_COL_MAJOR)
-EIGEN_MKL_EIG_SELFADJ(float,    float,         float,  ssyev, ColMajor, LAPACK_COL_MAJOR)
+EIGEN_MKL_EIG_SELFADJ(Float32,    Float32,         Float32,  ssyev, ColMajor, LAPACK_COL_MAJOR)
 EIGEN_MKL_EIG_SELFADJ(dcomplex, MKL_Complex16, double, zheev, ColMajor, LAPACK_COL_MAJOR)
-EIGEN_MKL_EIG_SELFADJ(scomplex, MKL_Complex8,  float,  cheev, ColMajor, LAPACK_COL_MAJOR)
+EIGEN_MKL_EIG_SELFADJ(scomplex, MKL_Complex8,  Float32,  cheev, ColMajor, LAPACK_COL_MAJOR)
 
 EIGEN_MKL_EIG_SELFADJ(double,   double,        double, dsyev, RowMajor, LAPACK_ROW_MAJOR)
-EIGEN_MKL_EIG_SELFADJ(float,    float,         float,  ssyev, RowMajor, LAPACK_ROW_MAJOR)
+EIGEN_MKL_EIG_SELFADJ(Float32,    Float32,         Float32,  ssyev, RowMajor, LAPACK_ROW_MAJOR)
 EIGEN_MKL_EIG_SELFADJ(dcomplex, MKL_Complex16, double, zheev, RowMajor, LAPACK_ROW_MAJOR)
-EIGEN_MKL_EIG_SELFADJ(scomplex, MKL_Complex8,  float,  cheev, RowMajor, LAPACK_ROW_MAJOR)
+EIGEN_MKL_EIG_SELFADJ(scomplex, MKL_Complex8,  Float32,  cheev, RowMajor, LAPACK_ROW_MAJOR)
 
 } // end namespace Eigen
 

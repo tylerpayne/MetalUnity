@@ -305,7 +305,7 @@ static inline void colamd_set_defaults(double knobs[COLAMD_KNOBS])
  * \brief  Computes a column ordering using the column approximate minimum degree ordering
  * 
  * Computes a column ordering (Q) of A such that P(AQ)=LU or
- * (AQ)'AQ=LL' have less fill-in and require fewer floating point
+ * (AQ)'AQ=LL' have less fill-in and require fewer Float32ing point
  * operations than factorizing the unpermuted matrix A or A'A,
  * respectively.
  * 

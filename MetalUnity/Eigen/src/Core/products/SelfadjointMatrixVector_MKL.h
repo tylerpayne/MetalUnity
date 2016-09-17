@@ -67,7 +67,7 @@ static void run( \
 }; \
 
 EIGEN_MKL_SYMV_SPECIALIZE(double)
-EIGEN_MKL_SYMV_SPECIALIZE(float)
+EIGEN_MKL_SYMV_SPECIALIZE(Float32)
 EIGEN_MKL_SYMV_SPECIALIZE(dcomplex)
 EIGEN_MKL_SYMV_SPECIALIZE(scomplex)
 
@@ -103,7 +103,7 @@ const EIGTYPE* _rhs, Index rhsIncr, EIGTYPE* res, EIGTYPE alpha) \
 };
 
 EIGEN_MKL_SYMV_SPECIALIZATION(double,   double,        dsymv)
-EIGEN_MKL_SYMV_SPECIALIZATION(float,    float,         ssymv)
+EIGEN_MKL_SYMV_SPECIALIZATION(Float32,    Float32,         ssymv)
 EIGEN_MKL_SYMV_SPECIALIZATION(dcomplex, MKL_Complex16, zhemv)
 EIGEN_MKL_SYMV_SPECIALIZATION(scomplex, MKL_Complex8,  chemv)
 

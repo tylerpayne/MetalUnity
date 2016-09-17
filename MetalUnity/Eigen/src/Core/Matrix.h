@@ -24,7 +24,7 @@ namespace Eigen {
   * The %Matrix class encompasses \em both fixed-size and dynamic-size objects (\ref fixedsize "note").
   *
   * The first three template parameters are required:
-  * \tparam _Scalar \anchor matrix_tparam_scalar Numeric type, e.g. float, double, int or std::complex<float>.
+  * \tparam _Scalar \anchor matrix_tparam_scalar Numeric type, e.g. Float32, double, int or std::complex<Float32>.
   *                 User defined sclar types are supported as well (see \ref user_defined_scalars "here").
   * \tparam _Rows Number of rows, or \b Dynamic
   * \tparam _Cols Number of columns, or \b Dynamic
@@ -40,13 +40,13 @@ namespace Eigen {
   * Eigen provides a number of typedefs covering the usual cases. Here are some examples:
   *
   * \li \c Matrix2d is a 2x2 square matrix of doubles (\c Matrix<double, 2, 2>)
-  * \li \c Vector4f is a vector of 4 floats (\c Matrix<float, 4, 1>)
+  * \li \c Vector4f is a vector of 4 Float32s (\c Matrix<Float32, 4, 1>)
   * \li \c RowVector3i is a row-vector of 3 ints (\c Matrix<int, 1, 3>)
   *
-  * \li \c MatrixXf is a dynamic-size matrix of floats (\c Matrix<float, Dynamic, Dynamic>)
-  * \li \c VectorXf is a dynamic-size vector of floats (\c Matrix<float, Dynamic, 1>)
+  * \li \c MatrixXf is a dynamic-size matrix of Float32s (\c Matrix<Float32, Dynamic, Dynamic>)
+  * \li \c VectorXf is a dynamic-size vector of Float32s (\c Matrix<Float32, Dynamic, 1>)
   *
-  * \li \c Matrix2Xf is a partially fixed-size (dynamic-size) matrix of floats (\c Matrix<float, 2, Dynamic>)
+  * \li \c Matrix2Xf is a partially fixed-size (dynamic-size) matrix of Float32s (\c Matrix<Float32, 2, Dynamic>)
   * \li \c MatrixX3d is a partially dynamic-size (fixed-size) matrix of double (\c Matrix<double, Dynamic, 3>)
   *
   * See \link matrixtypedefs this page \endlink for a complete list of predefined \em %Matrix and \em Vector typedefs.
@@ -371,13 +371,13 @@ class Matrix
   * The general patterns are the following:
   *
   * \c MatrixSizeType where \c Size can be \c 2,\c 3,\c 4 for fixed size square matrices or \c X for dynamic size,
-  * and where \c Type can be \c i for integer, \c f for float, \c d for double, \c cf for complex float, \c cd
+  * and where \c Type can be \c i for integer, \c f for Float32, \c d for double, \c cf for complex Float32, \c cd
   * for complex double.
   *
-  * For example, \c Matrix3d is a fixed-size 3x3 matrix type of doubles, and \c MatrixXf is a dynamic-size matrix of floats.
+  * For example, \c Matrix3d is a fixed-size 3x3 matrix type of doubles, and \c MatrixXf is a dynamic-size matrix of Float32s.
   *
   * There are also \c VectorSizeType and \c RowVectorSizeType which are self-explanatory. For example, \c Vector4cf is
-  * a fixed-size vector of 4 complex floats.
+  * a fixed-size vector of 4 complex Float32s.
   *
   * \sa class Matrix
   */
@@ -406,9 +406,9 @@ EIGEN_MAKE_FIXED_TYPEDEFS(Type, TypeSuffix, 3) \
 EIGEN_MAKE_FIXED_TYPEDEFS(Type, TypeSuffix, 4)
 
 EIGEN_MAKE_TYPEDEFS_ALL_SIZES(int,                  i)
-EIGEN_MAKE_TYPEDEFS_ALL_SIZES(float,                f)
+EIGEN_MAKE_TYPEDEFS_ALL_SIZES(Float32,                f)
 EIGEN_MAKE_TYPEDEFS_ALL_SIZES(double,               d)
-EIGEN_MAKE_TYPEDEFS_ALL_SIZES(std::complex<float>,  cf)
+EIGEN_MAKE_TYPEDEFS_ALL_SIZES(std::complex<Float32>,  cf)
 EIGEN_MAKE_TYPEDEFS_ALL_SIZES(std::complex<double>, cd)
 
 #undef EIGEN_MAKE_TYPEDEFS_ALL_SIZES

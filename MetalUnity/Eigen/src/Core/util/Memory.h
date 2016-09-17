@@ -575,7 +575,7 @@ template<typename T> class aligned_stack_memory_handler
   * Here is an example:
   * \code
   * {
-  *   ei_declare_aligned_stack_constructed_variable(float,data,size,0);
+  *   ei_declare_aligned_stack_constructed_variable(Float32,data,size,0);
   *   // use data[0] to data[size-1]
   * }
   * \endcode
