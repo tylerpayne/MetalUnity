@@ -18,11 +18,11 @@
 {
 	self.context = context;
 		
-	self.videoTexture = [MUVideoTexture NewEmptyTexture:context Width:352 Height:288 Depth:1];
+	self.videoTexture = [MUVideoTexture NewEmptyTexture:context Width:640 Height:480 Depth:1];
 	NSLog(@"InitVideoTexture: %@",self.videoTexture.tex);
 		
 	self.session = [[AVCaptureSession alloc] init];
-	self.session.sessionPreset = AVCaptureSessionPreset352x288;
+	self.session.sessionPreset = AVCaptureSessionPreset640x480;
 		
 	NSError* error =nil;
 		
