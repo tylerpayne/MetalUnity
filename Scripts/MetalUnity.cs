@@ -25,7 +25,7 @@ public class MetalUnity {
 
 	//Video
 	[DllImport ("__Internal")]
-	private static extern void MUSetupNativeVideoInput ();
+	private static extern void MUSetupNativeVideoInput (int vr);
 
 	[DllImport ("__Internal")]
 	private static extern void MUStartRecordingNativeVideo ();
@@ -34,14 +34,22 @@ public class MetalUnity {
 	private static extern System.IntPtr MUGetVideoTexturePointer ();
 	#endregion
 
+	public enum VideoResolution 
+	{
+		w352h288 = 0,
+		w640h480 = 1,
+		w1280h720 = 2,
+		w1920h1080 = 3
+	}
+
 	public static void SetupMetalUnity()
 	{
 		MUSetupMetalUnity ();
 	}
 
-	public static void SetupNativeVideoInput()
+	public static void SetupNativeVideoInput(VideoResolution vidRes)
 	{
-		MUSetupNativeVideoInput ();
+		MUSetupNativeVideoInput ((int)vidRes);
 	}
 
 	public static void StartRecordingNativeVideo()
@@ -223,7 +231,6 @@ public class ComputeFunction
 	public static string ClipGreater = "Clip_Greater_Constant";
 	public static string ClipLess = "Clip_Less_Constant";
 	public static string Grayscale = "Grayscale";
-
 }
 
 public class ComputeManager
@@ -237,7 +244,6 @@ public class ComputeManager
 		this.iD = newId;
 		this.computeFunction = f;
 	}
-
 }
 
 public class ComputeStack
@@ -255,7 +261,6 @@ public class ComputeStack
 
 	public void Push(string computeFunction, ResourceManager resourceManager)
 	{
-
 		if (functionCount() == 0) {
 			resourceManager.AttachTextureAtIndex (inputTexture, "0");
 		} else {

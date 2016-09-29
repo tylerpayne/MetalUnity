@@ -45,7 +45,7 @@
 	unsigned long int h = (int)MAX(1,inTex.size.height / divisor);
 	
 	if (inTex != NULL) {
-		MTLTextureDescriptor *txdesc = [MTLTextureDescriptor texture2DDescriptorWithPixelFormat:MTLPixelFormatR32Float width:w height:h mipmapped:FALSE];
+		MTLTextureDescriptor *txdesc = [MTLTextureDescriptor texture2DDescriptorWithPixelFormat:MTLPixelFormatRGBA32Float width:w height:h mipmapped:FALSE];
 		id<MTLTexture> outTex = [self.context.device newTextureWithDescriptor:txdesc];
 		[self attachTexture:outTex AtIndex:@"1"];
 	}

@@ -16,7 +16,7 @@
             startingLineNumber = "22"
             endingLineNumber = "22"
             landmarkName = "-initWithDefaultDevice"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -32,7 +32,7 @@
             startingLineNumber = "100"
             endingLineNumber = "100"
             landmarkName = "-_generateLoGFilter:AtIndex:Std:Radius:"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -48,7 +48,7 @@
             startingLineNumber = "40"
             endingLineNumber = "40"
             landmarkName = "-attachOutputTexture"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -64,7 +64,7 @@
             startingLineNumber = "74"
             endingLineNumber = "74"
             landmarkName = "-dispatch"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -80,7 +80,7 @@
             startingLineNumber = "79"
             endingLineNumber = "79"
             landmarkName = "-_generate5x5SobelYOperator:AtIndex:"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

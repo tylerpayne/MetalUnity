@@ -22,16 +22,16 @@ kernel void SobelGradient_Magnitude(texture2d<float, access::read> inTexture [[t
 	float size = x_weights.get_width();
 	int radius = size / 2;
 	
-	float xaccumColor;
-	float yaccumColor;
-	float outpix;
+	float4 xaccumColor(0,0,0,1);
+	float4 yaccumColor(0,0,0,1);
+	float4 outpix(0,0,0,1);
 	for (int i = 0; i < size; ++i)
 	{
 		for (int j = 0; j < size; ++j)
 		{
 			uint2 kernelIndex(i, j);
 			uint2 textureIndex(gid.x + (i - radius), gid.y + (j - radius));
-			float color = length_squared(inTexture.read(textureIndex));
+			float4 color = inTexture.read(textureIndex).rgba;
 			float xweight = x_weights.read(kernelIndex).r;
 			xaccumColor += xweight * color;
 			float yweight = y_weights.read(kernelIndex).r;
@@ -52,16 +52,16 @@ kernel void SobelGradient_Sum(texture2d<float, access::read> inTexture [[texture
 	float size = x_weights.get_width();
 	int radius = size / 2;
 	
-	float xaccumColor;
-	float yaccumColor;
-	float outpix;
+	float4 xaccumColor(0,0,0,1);
+	float4 yaccumColor(0,0,0,1);
+	float4 outpix(0,0,0,1);
 	for (int i = 0; i < size; ++i)
 	{
 		for (int j = 0; j < size; ++j)
 		{
 			uint2 kernelIndex(i, j);
 			uint2 textureIndex(gid.x + (i - radius), gid.y + (j - radius));
-			float color = length_squared(inTexture.read(textureIndex));
+			float4 color = inTexture.read(textureIndex).rgba;
 			float xweight = x_weights.read(kernelIndex).r;
 			xaccumColor += xweight * color;
 			float yweight = y_weights.read(kernelIndex).r;
@@ -81,15 +81,15 @@ kernel void Convolve(texture2d<float, access::read> inTexture [[texture(0)]],
 	float size = weights.get_width();
 	int radius = size / 2;
 	
-	float accumColor;
-	float outpix;
+	float4 accumColor(0,0,0,1);
+	float4 outpix(0,0,0,1);
 	for (int i = 0; i < size; ++i)
 	{
 		for (int j = 0; j < size; ++j)
 		{
 			uint2 kernelIndex(i, j);
 			uint2 textureIndex(gid.x + (i - radius), gid.y + (j - radius));
-			float color = length_squared(inTexture.read(textureIndex));
+			float4 color = inTexture.read(textureIndex).rgba;
 			float weight = weights.read(kernelIndex).r;
 			accumColor += weight * color;
 			
@@ -114,7 +114,7 @@ kernel void LocalMax_Constant(texture2d<float,access::read> inTexture [[texture(
 		for (int j = 0; j < size; ++j)
 		{
 			uint2 textureIndex(gid.x + (i - radius), gid.y + (j - radius));
-			float4 color = inTexture.read(textureIndex);
+			float4 color = inTexture.read(textureIndex).rgba;
 			if (length_squared(color) > length_squared(maxVal))
 			{
 				maxVal = color;

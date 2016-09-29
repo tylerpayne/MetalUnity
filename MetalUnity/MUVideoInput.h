@@ -22,6 +22,6 @@
 
 @property (strong) MUVideoTexture *videoTexture;
 
-+(instancetype)NewVideoInputWithContext:(MUComputeContext*)context;
++(instancetype)NewVideoInputWithContext:(MUComputeContext *)context VideoResolution:(int)vidRes;
 
 @end

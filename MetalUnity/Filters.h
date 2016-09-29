@@ -22,11 +22,11 @@
 +(id<MTLTexture>)SobelFilter5x5_Y:(MUComputeContext*)ctx;
 
 
-+(id<MTLTexture>)GaussianFilterStd:(Float32)sigma Width:(int)w Context:(MUComputeContext*)ctx;
++(id<MTLTexture>)GaussianFilterStd:(float)sigma Width:(int)w Context:(MUComputeContext*)ctx;
 
 //Second Order Approximations
 +(id<MTLTexture>)LaplacianOperator3x3:(MUComputeContext*)ctx;
-+(id<MTLTexture>)LaplacianOfGaussian:(Float32)sigma Width:(int)w Context:(MUComputeContext*)ctx;
-+(id<MTLTexture>)DifferenceOfGaussian:(Float32)sigma Width:(int)w Context:(MUComputeContext*)ctx;
++(id<MTLTexture>)LaplacianOfGaussian:(float)sigma Width:(int)w Context:(MUComputeContext*)ctx;
++(id<MTLTexture>)DifferenceOfGaussian:(float)sigma Width:(int)w Context:(MUComputeContext*)ctx;
 
 @end

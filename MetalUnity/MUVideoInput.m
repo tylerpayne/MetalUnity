@@ -9,20 +9,53 @@
 
 @implementation MUVideoInput
 
-+(instancetype)NewVideoInputWithContext:(MUComputeContext *)context
++(instancetype)NewVideoInputWithContext:(MUComputeContext *)context VideoResolution:(int)vidRes
 {
-	return [[self alloc] initWithContext:context];
+	return [[self alloc] initWithContext:context VideoResolution:vidRes];
 }
 
--(instancetype)initWithContext:(MUComputeContext*)context
+-(instancetype)initWithContext:(MUComputeContext*)context VideoResolution:(int)vidRes
 {
 	self.context = context;
+	
+	int w;
+	int h;
+	NSString *preset;
+	
+	switch (vidRes) {
+		case 0:
+			preset = AVCaptureSessionPreset352x288;
+			w = 352;
+			h = 288;
+			break;
+		case 1:
+			preset = AVCaptureSessionPreset640x480;
+			w = 640;
+			h = 480;
+			break;
+		case 2:
+			preset = AVCaptureSessionPreset1280x720;
+			w = 1280;
+			h = 720;
+			break;
+		case 3:
+			preset = AVCaptureSessionPreset1920x1080;
+			w = 1920;
+			h = 1080;
+			break;
+			
+		default:
+			preset = AVCaptureSessionPreset352x288;
+			w = 352;
+			h = 288;
+			break;
+	}
 		
-	self.videoTexture = [MUVideoTexture NewEmptyTexture:context Width:640 Height:480 Depth:1];
+	self.videoTexture = [MUVideoTexture NewEmptyTexture:context Width:w Height:h Depth:1];
 	NSLog(@"InitVideoTexture: %@",self.videoTexture.tex);
 		
 	self.session = [[AVCaptureSession alloc] init];
-	self.session.sessionPreset = AVCaptureSessionPreset640x480;
+	self.session.sessionPreset = preset;
 		
 	NSError* error =nil;
 		

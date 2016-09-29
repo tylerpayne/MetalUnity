@@ -8,7 +8,6 @@ public class CornerDetector {
 
 	private ComputeStack computeStack;
 
-	// Use this for initialization
 	public CornerDetector(float thresholdValue)
 	{
 		this.threshold = thresholdValue;
@@ -16,44 +15,61 @@ public class CornerDetector {
 	}
 
 
-	public void Activate () {
+	public void Activate () 
+	{
 		MetalUnity.SetupMetalUnity ();
 
 		//Setup Video
-		MetalUnity.SetupNativeVideoInput ();
+		MetalUnity.SetupNativeVideoInput (MetalUnity.VideoResolution.w352h288);
 		MetalUnity.StartRecordingNativeVideo ();
 
 		System.IntPtr videoTexture = MetalUnity.GetVideoTexturePointer ();
 
 		computeStack = new ComputeStack (videoTexture);
 
+		ResourceManager preBlur = MetalUnity.NewResourceManager ();
+		preBlur.GenerateGaussianFilter ("2", 9f, 9);
+
 		ResourceManager dI = MetalUnity.NewResourceManager ();
-		dI.Generate5x5SobelXOperator ("2");
-		dI.Generate5x5SobelYOperator ("3");
+		dI.Generate3x3SobelXOperator ("2");
+		dI.Generate3x3SobelYOperator ("3");
 
 		ResourceManager blur = MetalUnity.NewResourceManager ();
-		blur.GenerateGaussianFilter ("2", 9f, 3);
+		blur.GenerateGaussianFilter ("2", 5f, 3);
+
+		ResourceManager dI2 = MetalUnity.NewResourceManager ();
 
 		ResourceManager d2I = MetalUnity.NewResourceManager ();
-		d2I.Generate5x5SobelXOperator ("2");
-		d2I.Generate5x5SobelYOperator ("3");
+		d2I.Generate3x3SobelXOperator ("2");
+		d2I.Generate3x3SobelYOperator ("3");
 
 		ResourceManager blur2 = MetalUnity.NewResourceManager ();
-		blur2.GenerateGaussianFilter ("2", 9f, 3);
+		blur2.GenerateGaussianFilter ("2", 5f, 3);
 
+		ResourceManager d2I2 = MetalUnity.NewResourceManager ();
+
+		ResourceManager subtract = MetalUnity.NewResourceManager ();
+
+		computeStack.Push (ComputeFunction.Convolve, preBlur);
 		computeStack.Push (ComputeFunction.MagnitudeTwoFilters, dI);
-		//computeStack.Push (ComputeFunction.Convolve, blur);
-		computeStack.Push (ComputeFunction.MagnitudeTwoFilters, d2I);
-		//computeStack.Push (ComputeFunction.Convolve, blur2);
+		computeStack.Push (ComputeFunction.Convolve, blur);
+		computeStack.Push (ComputeFunction.Multiply, dI2);
+		dI2.AttachTextureAtIndex (blur.GetTexturePointerAtIndex (@"1"), @"2");
+		//computeStack.Push (ComputeFunction.MultiplyConstant, multSupress);
+		computeStack.Push (ComputeFunction.SumTwoFilters, d2I);
+		computeStack.Push (ComputeFunction.Convolve, blur2);
+		computeStack.Push (ComputeFunction.Multiply, d2I2);
+		computeStack.Push (ComputeFunction.Subtract, subtract);
+		subtract.AttachTextureAtIndex (dI2.GetTexturePointerAtIndex (@"1"), @"2");
+		d2I2.AttachTextureAtIndex (blur2.GetTexturePointerAtIndex (@"1"), @"2");
 
 		nativeOutputTexturePtr = computeStack.GetOutputTexture ();
 
-
 		//MUDebugger.instance.AddAdditionalDebugInfo("Pixel Values (x,y)",GetPixelValuesFromTexture);*/
-	
 	}
 
-	public void ComputeCorners () {
+	public void ComputeCorners () 
+	{
 		computeStack.Dispatch ();
 	}
 
