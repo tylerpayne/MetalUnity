@@ -36,6 +36,6 @@ Thumbs.db
 
 # MY FILES #
 ############
-
-MetalUnity
-Builds
+MetalUnity.xcodeproj
+MetalUnity/
+Builds/
