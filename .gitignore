@@ -41,3 +41,4 @@ MetalUnity/
 Builds/
 documentation.md
 LICENSE
+Scripts/[^MetalUnity.cs]
