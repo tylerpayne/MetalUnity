@@ -41,4 +41,7 @@ MetalUnity/
 Builds/
 documentation.md
 LICENSE
-Scripts/[^MetalUnity.cs]
+Scripts/*
+!Scripts/MetalUnity.cs
+!Scripts/iOS
+!Scripts/iOS/*
