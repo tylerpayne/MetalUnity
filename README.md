@@ -7,4 +7,4 @@ Simple! Just drop the contents of the Scripts folder into your iOS Unity Project
 ##Example
 The simplest way to use MetalUnity is the ComputeStack. See [the example] for a full implementation.
 
-[the example]:
+[the example]:https://github.com/tylerpayne/MetalUnity/blob/master/MUExample.cs
